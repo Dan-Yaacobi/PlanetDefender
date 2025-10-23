@@ -11,8 +11,8 @@ config_version=5
 [application]
 
 config/name="ElectriCity"
-run/main_scene="res://Circle/Circle.tscn"
-config/features=PackedStringArray("4.3", "Mobile")
+run/main_scene="res://Circle/Orbit.tscn"
+config/features=PackedStringArray("4.5", "Mobile")
 config/icon="res://icon.svg"
 
 [input]

@@ -1,12 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://cxrg875qjpt1q"]
+[gd_scene load_steps=7 format=3 uid="uid://cxrg875qjpt1q"]
 
 [ext_resource type="Texture2D" uid="uid://bfg0tse5jkdoc" path="res://icon.svg" id="1_ddfly"]
-[ext_resource type="Script" path="res://Player/player.gd" id="1_x2hbx"]
-[ext_resource type="Script" path="res://Player/player_state_machine.gd" id="3_kscxl"]
-[ext_resource type="Script" path="res://Player/move_state.gd" id="4_ko64m"]
-[ext_resource type="Script" path="res://Player/speed_up_state.gd" id="5_0423o"]
-[ext_resource type="Script" path="res://Player/shoot_state.gd" id="6_br620"]
-[ext_resource type="Script" path="res://Player/change_direction_state.gd" id="8_gkbna"]
+[ext_resource type="Script" uid="uid://dkwu74aisu8bi" path="res://Player/player.gd" id="1_x2hbx"]
+[ext_resource type="Script" uid="uid://bv8dcli88ob2q" path="res://Player/player_state_machine.gd" id="3_kscxl"]
+[ext_resource type="Script" uid="uid://deuwim2c11yce" path="res://Player/move_state.gd" id="4_ko64m"]
+[ext_resource type="Script" uid="uid://cuu6gkchxciol" path="res://Player/shoot_state.gd" id="6_br620"]
+[ext_resource type="Script" uid="uid://dkkbwridkexmi" path="res://Player/change_direction_state.gd" id="8_gkbna"]
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_x2hbx")
@@ -22,9 +21,6 @@ script = ExtResource("4_ko64m")
 
 [node name="SingleClickTimer" type="Timer" parent="PlayerStateMachine/Move"]
 one_shot = true
-
-[node name="SpeedUp" type="Node2D" parent="PlayerStateMachine"]
-script = ExtResource("5_0423o")
 
 [node name="Shoot" type="Node2D" parent="PlayerStateMachine"]
 script = ExtResource("6_br620")

@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://ctq4iv4j4qmby"]
+
+[ext_resource type="Script" uid="uid://bw3faqplt6lyn" path="res://Circle/orbit.gd" id="1_lys3a"]
+[ext_resource type="PackedScene" uid="uid://cxrg875qjpt1q" path="res://Player/Player.tscn" id="2_2s1rm"]
+[ext_resource type="PackedScene" uid="uid://bdxn04e4ef64h" path="res://Spawners/EnemySpawner.tscn" id="3_2s1rm"]
+[ext_resource type="PackedScene" uid="uid://d2jtfpfwusqqp" path="res://Enemies/Scenes/BasicEnemy.tscn" id="5_8fcxx"]
+
+[node name="Orbit" type="Node2D"]
+script = ExtResource("1_lys3a")
+
+[node name="Player" parent="." instance=ExtResource("2_2s1rm")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="EnemySpawner" parent="." instance=ExtResource("3_2s1rm")]
+enemies = Array[PackedScene]([ExtResource("5_8fcxx")])

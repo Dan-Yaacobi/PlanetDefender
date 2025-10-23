@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://c1gbpjw7hjus0"]
+
+[ext_resource type="Script" uid="uid://bchdog5x3gix8" path="res://LevelManager/level.gd" id="1_nou7w"]
+[ext_resource type="PackedScene" uid="uid://ctq4iv4j4qmby" path="res://Circle/Orbit.tscn" id="2_f75a1"]
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_nou7w")
+
+[node name="Orbit" parent="." instance=ExtResource("2_f75a1")]

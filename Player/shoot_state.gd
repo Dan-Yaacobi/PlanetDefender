@@ -3,21 +3,26 @@ class_name ShootPlayerState extends PlayerState
 @onready var after_shoot_timer: Timer = $AfterShootTimer
 
 var air_borne: bool = false
+var direction: Vector2
+var shoot_speed: float = 1200.0
+
 # store a refernece to the player this belongs to
 func init() -> void:
 	pass
-	
+
 func _ready() -> void:
 	after_shoot_timer.timeout.connect(in_the_air)
 	pass
 
 #what happens when the player enters this state
 func Enter() -> void:
+	shoot_speed = 1200.0
 	air_borne = false
 	player.shoot()
 	after_shoot_timer.start()
+	direction = player.shoot_direction()
 	pass
-	
+
 #what happens when the player exits this state
 func Exit() -> void:
 	pass
@@ -26,11 +31,11 @@ func Exit() -> void:
 func Process(_delta: float) -> PlayerState:
 	if player.reached_circle() and air_borne:
 		return move
-	#return move
 	return null
 	
 #what happens during _physics_process update in this state
 func Physics(_delta: float) -> PlayerState:
+	player.velocity = direction * shoot_speed
 	return null
 	
 #what happens during input events in this state
