@@ -12,6 +12,7 @@
 
 [sub_resource type="Resource" id="Resource_jkeq0"]
 script = ExtResource("2_06idi")
+move_speed = 30.0
 metadata/_custom_type_script = "uid://bg0uh67ajb4uw"
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_06idi"]
@@ -22,6 +23,8 @@ radius = 22.0
 height = 48.0
 
 [node name="SplitEnemy" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 0
 script = ExtResource("1_2dt8q")
 stats = SubResource("Resource_jkeq0")
 
@@ -42,6 +45,8 @@ script = ExtResource("6_jkeq0")
 script = ExtResource("7_hvb2w")
 
 [node name="EnemyHurtBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
 script = ExtResource("3_1qst3")
 metadata/_custom_type_script = "uid://dbb6686lmbr73"
 
@@ -49,6 +54,8 @@ metadata/_custom_type_script = "uid://dbb6686lmbr73"
 shape = SubResource("CapsuleShape2D_06idi")
 
 [node name="HitBox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
 script = ExtResource("4_ljyrn")
 metadata/_custom_type_script = "uid://cqx18dqygub6n"
 

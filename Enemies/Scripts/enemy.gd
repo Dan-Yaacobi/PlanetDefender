@@ -12,7 +12,7 @@ func _ready() -> void:
 	enemy_state_machine.Initialize(self)
 	hit_box.Damaged.connect(_take_damage)
 	enemy_hurt_box.hit_planet.connect(_dealt_damage)
-
+	
 func set_target(_target: Vector2) -> void:
 	target = _target
 
@@ -28,3 +28,9 @@ func _dealt_damage() -> void:
 	
 func calc_direction() -> Vector2:
 	return (target - global_position).normalized()
+	
+func activate() -> void:
+	pass
+
+func deactivate() -> void:
+	pass

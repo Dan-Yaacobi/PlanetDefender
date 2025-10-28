@@ -1,13 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://ctq4iv4j4qmby"]
+[gd_scene load_steps=9 format=3 uid="uid://ctq4iv4j4qmby"]
 
 [ext_resource type="Script" uid="uid://bw3faqplt6lyn" path="res://Orbit/orbit.gd" id="1_lys3a"]
 [ext_resource type="PackedScene" uid="uid://cxrg875qjpt1q" path="res://Player/Player.tscn" id="2_2s1rm"]
 [ext_resource type="PackedScene" uid="uid://cqhcpy2sdjl52" path="res://Planets/Planet.tscn" id="2_ojbbq"]
 [ext_resource type="PackedScene" uid="uid://bdxn04e4ef64h" path="res://Spawners/EnemySpawner.tscn" id="3_2s1rm"]
 [ext_resource type="Script" uid="uid://3mkomcatevj3" path="res://Planets/planet_stats.gd" id="3_xstqt"]
-[ext_resource type="PackedScene" uid="uid://d2jtfpfwusqqp" path="res://Enemies/Scenes/BasicEnemy.tscn" id="5_8fcxx"]
 [ext_resource type="Script" uid="uid://c00xrtumuh2sr" path="res://Orbit/camera_2d.gd" id="5_ubuf3"]
-[ext_resource type="PackedScene" uid="uid://y5vg7nnk76p2" path="res://Enemies/Scenes/ShooterEnemy.tscn" id="8_ujb8k"]
+[ext_resource type="PackedScene" uid="uid://dp4a2g31k81ja" path="res://Enemies/Scenes/SplitEnemy.tscn" id="7_ubuf3"]
 
 [sub_resource type="Resource" id="Resource_ubuf3"]
 script = ExtResource("3_xstqt")
@@ -28,5 +27,5 @@ stats = SubResource("Resource_ubuf3")
 script = ExtResource("5_ubuf3")
 
 [node name="EnemySpawner" parent="." instance=ExtResource("3_2s1rm")]
-enemies = Array[PackedScene]([ExtResource("5_8fcxx"), ExtResource("8_ujb8k")])
-time_to_spawn = 3.0
+enemies = Array[PackedScene]([ExtResource("7_ubuf3")])
+time_to_spawn = 7.0
