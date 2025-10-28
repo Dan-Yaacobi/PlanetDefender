@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://cqhcpy2sdjl52"]
+
+[ext_resource type="Texture2D" uid="uid://bpp2sshcoo2a1" path="res://Planets/Sprites/planet_1.png" id="1_7k8co"]
+[ext_resource type="Script" uid="uid://dcdrv43lx5eh2" path="res://Planets/planet.gd" id="1_u2rdn"]
+[ext_resource type="Script" uid="uid://cqx18dqygub6n" path="res://General Nodes/HitBox/hit_box.gd" id="2_u2rdn"]
+[ext_resource type="PackedScene" uid="uid://744fi3gyicso" path="res://General Nodes/HpBar/HpBar.tscn" id="4_qhd5o"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qhd5o"]
+radius = 21.540659
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_u2rdn"]
+radius = 22.561028
+
+[node name="Planet" type="Area2D"]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_u2rdn")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_7k8co")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_qhd5o")
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("2_u2rdn")
+metadata/_custom_type_script = "uid://cqx18dqygub6n"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("CircleShape2D_u2rdn")
+debug_color = Color(0.9655499, 2.9841065e-06, 0.48894012, 0.41960785)
+
+[node name="HpBar" parent="." instance=ExtResource("4_qhd5o")]
+offset_left = -28.0
+offset_top = 24.0
+offset_right = 35.0
+offset_bottom = 39.0

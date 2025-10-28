@@ -1,5 +1,6 @@
-class_name EnemySpawnState extends EnemyState
-@onready var move: EnemyMoveState = $"../Move"
+class_name SplitEnemySpawnState extends EnemyState
+
+@onready var move: SplitEnemyMoveState = $"../Move"
 
 func init() -> void:
 	pass

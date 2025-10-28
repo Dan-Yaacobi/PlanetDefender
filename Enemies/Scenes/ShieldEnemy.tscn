@@ -1,0 +1,82 @@
+[gd_scene load_steps=16 format=3 uid="uid://ya6vpemtyaom"]
+
+[ext_resource type="Script" uid="uid://bvwte0fcx5yr5" path="res://Enemies/Scripts/enemy.gd" id="1_8lnma"]
+[ext_resource type="PackedScene" uid="uid://282sj5706tr0" path="res://Enemies/Scripts/StateMachine/EnemyStateMachine.tscn" id="2_342kn"]
+[ext_resource type="Script" uid="uid://bg0uh67ajb4uw" path="res://Enemies/Scripts/enemy_stats.gd" id="2_581px"]
+[ext_resource type="Texture2D" uid="uid://copd6vt6dt3jh" path="res://Enemies/Sprites/ship_2.png" id="2_iu7tg"]
+[ext_resource type="Script" uid="uid://cqx18dqygub6n" path="res://General Nodes/HitBox/hit_box.gd" id="2_vdwsu"]
+[ext_resource type="Script" uid="uid://dtu8sd4ttdauk" path="res://Enemies/Scripts/StateMachine/ShieldEnemyStates/shield_enemy_spawn_state.gd" id="3_taagx"]
+[ext_resource type="Script" uid="uid://beijctbsxlxvh" path="res://Enemies/Scripts/StateMachine/ShieldEnemyStates/shield_enemy_move_state.gd" id="4_581px"]
+[ext_resource type="Script" uid="uid://b384jg118qsmr" path="res://Enemies/Scenes/shield.gd" id="4_vdwsu"]
+[ext_resource type="Texture2D" uid="uid://ci3m2tfapet7w" path="res://Enemies/Sprites/item_3.png" id="6_342kn"]
+[ext_resource type="Script" uid="uid://dbb6686lmbr73" path="res://Enemies/Scripts/enemy_hurt_box.gd" id="7_taagx"]
+
+[sub_resource type="Resource" id="Resource_e8k61"]
+script = ExtResource("2_581px")
+move_speed = 25.0
+metadata/_custom_type_script = "uid://bg0uh67ajb4uw"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_581px"]
+size = Vector2(22, 36)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e8k61"]
+size = Vector2(22, 36)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_taagx"]
+size = Vector2(20, 12)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_581px"]
+radius = 13.416408
+
+[node name="ShieldEnemy" type="CharacterBody2D"]
+scale = Vector2(1.4, 1.4)
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_8lnma")
+stats = SubResource("Resource_e8k61")
+
+[node name="EnemyStateMachine" parent="." instance=ExtResource("2_342kn")]
+
+[node name="Spawn" type="Node2D" parent="EnemyStateMachine"]
+script = ExtResource("3_taagx")
+
+[node name="Move" type="Node2D" parent="EnemyStateMachine"]
+script = ExtResource("4_581px")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_iu7tg")
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("2_vdwsu")
+metadata/_custom_type_script = "uid://cqx18dqygub6n"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(0, -3)
+shape = SubResource("RectangleShape2D_581px")
+
+[node name="EnemyHurtBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("7_taagx")
+metadata/_custom_type_script = "uid://b7tsc6nrmy64t"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHurtBox"]
+position = Vector2(0, -3)
+shape = SubResource("RectangleShape2D_e8k61")
+debug_color = Color(0.98749167, 0, 0.3174379, 0.41960785)
+
+[node name="Shield" type="StaticBody2D" parent="."]
+scale = Vector2(1.5, 1.5)
+script = ExtResource("4_vdwsu")
+
+[node name="Sprite2D" type="Sprite2D" parent="Shield"]
+texture = ExtResource("6_342kn")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Shield"]
+position = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_taagx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_581px")

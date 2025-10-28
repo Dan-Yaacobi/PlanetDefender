@@ -1,8 +1,9 @@
-class_name MovePlayerState extends PlayerState
-
-@onready var shoot: ShootPlayerState = $"../Shoot"
+class_name EnemyState extends Node2D
 
 # store a refernece to the player this belongs to
+var enemy: Enemy
+var state_machine: EnemyStateMachine
+
 func init() -> void:
 	pass
 	
@@ -11,7 +12,6 @@ func _ready() -> void:
 
 #what happens when the player enters this state
 func Enter() -> void:
-	player.slow_down()
 	pass
 	
 #what happens when the player exits this state
@@ -19,18 +19,15 @@ func Exit() -> void:
 	pass
 	
 #what happens during process update in this state
-func Process(_delta: float) -> PlayerState:
+func Process(_delta: float) -> EnemyState:
 	return null
 	
 #what happens during _physics_process update in this state
-func Physics(_delta: float) -> PlayerState:
-	player.	moving_across_circle(_delta)
+func Physics(_delta: float) -> EnemyState:
 	return null
 	
 #what happens during input events in this state
-func HandleInput(_event: InputEvent) -> PlayerState:
-	if _event.is_action_pressed("Click"):
-		player.speed_up()
-	if _event.is_action_released("Click"):
-		return shoot
+func HandleInput(_event: InputEvent) -> EnemyState:
 	return null
+	
+	

@@ -1,8 +1,6 @@
-class_name EnemyState extends Node2D
+class_name ShooterSpawnState extends EnemyState
 
-# store a refernece to the player this belongs to
-static var enemy: Enemy
-static var state_machine: EnemyStateMachine
+@onready var move: ShooterMoveState = $"../Move"
 
 func init() -> void:
 	pass
@@ -20,6 +18,7 @@ func Exit() -> void:
 	
 #what happens during process update in this state
 func Process(_delta: float) -> EnemyState:
+	return move
 	return null
 	
 #what happens during _physics_process update in this state

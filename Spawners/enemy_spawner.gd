@@ -18,14 +18,14 @@ func _set_timer() -> void:
 func set_orbit(_orbit: Orbit) -> void:
 	if _orbit:
 		current_orbit = _orbit
-	
+
 func summon() -> void:
 	if _can_summon():
 		_spawn_enemy(_choose_enemy_to_spawn(),_get_spawn_point())
 
-func _choose_enemy_to_spawn() -> Enemy:
+func _choose_enemy_to_spawn() -> PackedScene:
 	if enemies.size() > 0:
-		return enemies.pick_random().instantiate()
+		return enemies.pick_random()
 	return null
 	
 func _can_summon() -> bool:
@@ -39,9 +39,10 @@ func _get_spawn_point() -> Vector2:
 	_position = Vector2(cos(angle),sin(angle)) * spawn_radius
 	return _position
 	
-func _spawn_enemy(_enemy: Enemy, _position: Vector2) -> void:
+func _spawn_enemy(_enemy: PackedScene, _position: Vector2) -> void:
 	if _enemy:
-		_enemy.set_target(current_orbit.get_center())
-		_enemy.global_position = _position
-		current_orbit.add_child(_enemy)
+		var new_enemy = _enemy.instantiate()
+		new_enemy.set_target(current_orbit.get_center())
+		new_enemy.global_position = _position
+		current_orbit.add_child(new_enemy)
 	

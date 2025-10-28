@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://da8kqd1u10mlp"]
+
+[ext_resource type="Script" uid="uid://dgx0uspyv1g3p" path="res://Interactables/Asteroid/asteroid.gd" id="1_pr0cd"]
+[ext_resource type="Texture2D" uid="uid://7lsv7yed6664" path="res://Interactables/Asteroid/Asteroids#01.png" id="2_c3vno"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1n0sa"]
+radius = 16.0
+
+[node name="Asteroid" type="Area2D"]
+collision_layer = 8
+collision_mask = 5
+script = ExtResource("1_pr0cd")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_c3vno")
+hframes = 2
+frame = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-4, -1)
+shape = SubResource("CircleShape2D_1n0sa")

@@ -1,4 +1,4 @@
-class_name EnemyMoveState extends EnemyState
+class_name SplitEnemyMoveState extends EnemyState
 
 func init() -> void:
 	pass
@@ -18,10 +18,11 @@ func Exit() -> void:
 func Process(_delta: float) -> EnemyState:
 	return null
 	
-#what happens during _physics_process update in this state
 func Physics(_delta: float) -> EnemyState:
-	enemy.velocity = calc_direction() * enemy.get_speed()
+	var curr_direction = calc_direction()
+	enemy.velocity = curr_direction * enemy.get_speed()
 	enemy.move_and_slide()
+	enemy.rotation = curr_direction.angle() + PI/2
 	return null
 	
 #what happens during input events in this state

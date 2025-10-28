@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://744fi3gyicso"]
+
+[ext_resource type="Script" uid="uid://kt4ite6whhtg" path="res://General Nodes/HpBar/hp_bar.gd" id="1_50vdd"]
+
+[node name="HpBar" type="ProgressBar"]
+modulate = Color(1, 0, 0, 1)
+script = ExtResource("1_50vdd")

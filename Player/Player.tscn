@@ -1,17 +1,24 @@
-[gd_scene load_steps=7 format=3 uid="uid://cxrg875qjpt1q"]
+[gd_scene load_steps=10 format=3 uid="uid://cxrg875qjpt1q"]
 
-[ext_resource type="Texture2D" uid="uid://bfg0tse5jkdoc" path="res://icon.svg" id="1_ddfly"]
 [ext_resource type="Script" uid="uid://dkwu74aisu8bi" path="res://Player/player.gd" id="1_x2hbx"]
-[ext_resource type="Script" uid="uid://bv8dcli88ob2q" path="res://Player/player_state_machine.gd" id="3_kscxl"]
-[ext_resource type="Script" uid="uid://deuwim2c11yce" path="res://Player/move_state.gd" id="4_ko64m"]
-[ext_resource type="Script" uid="uid://cuu6gkchxciol" path="res://Player/shoot_state.gd" id="6_br620"]
-[ext_resource type="Script" uid="uid://dkkbwridkexmi" path="res://Player/change_direction_state.gd" id="8_gkbna"]
+[ext_resource type="Texture2D" uid="uid://ceiwsj14lqgua" path="res://Player/Sprites/ship_4.png" id="2_vlldt"]
+[ext_resource type="Script" uid="uid://bv8dcli88ob2q" path="res://Player/StateMachine/player_state_machine.gd" id="3_kscxl"]
+[ext_resource type="Script" uid="uid://deuwim2c11yce" path="res://Player/StateMachine/States/move_state.gd" id="4_ko64m"]
+[ext_resource type="Script" uid="uid://cuu6gkchxciol" path="res://Player/StateMachine/States/shoot_state.gd" id="6_br620"]
+[ext_resource type="Script" uid="uid://dkkbwridkexmi" path="res://Player/StateMachine/States/change_direction_state.gd" id="8_gkbna"]
+[ext_resource type="Script" uid="uid://dw4pu10g7os2a" path="res://Player/player_hurt_box.gd" id="8_s1rgi"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s1rgi"]
+height = 41.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j23h2"]
 
 [node name="Player" type="CharacterBody2D"]
+scale = Vector2(2, 2)
 script = ExtResource("1_x2hbx")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_ddfly")
+texture = ExtResource("2_vlldt")
 
 [node name="PlayerStateMachine" type="Node2D" parent="."]
 script = ExtResource("3_kscxl")
@@ -30,3 +37,17 @@ wait_time = 0.2
 
 [node name="ChangeDirection" type="Node2D" parent="PlayerStateMachine"]
 script = ExtResource("8_gkbna")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -0.5)
+shape = SubResource("CapsuleShape2D_s1rgi")
+
+[node name="PlayerHurtBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("8_s1rgi")
+
+[node name="BottomRightCollision" type="CollisionShape2D" parent="PlayerHurtBox"]
+position = Vector2(0, -14)
+shape = SubResource("CircleShape2D_j23h2")
+debug_color = Color(0.98986727, 0, 0.29087272, 0.41960785)

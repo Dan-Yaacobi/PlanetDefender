@@ -1,60 +1,86 @@
-[gd_scene load_steps=14 format=3 uid="uid://d2jtfpfwusqqp"]
+[gd_scene load_steps=18 format=3 uid="uid://d2jtfpfwusqqp"]
 
 [ext_resource type="Script" uid="uid://bvwte0fcx5yr5" path="res://Enemies/Scripts/enemy.gd" id="1_kxpqt"]
-[ext_resource type="Script" uid="uid://bygvyuvs8j1ok" path="res://Enemies/Scripts/StateMachine/enemy_state_machine.gd" id="2_ynjfk"]
 [ext_resource type="Script" uid="uid://bg0uh67ajb4uw" path="res://Enemies/Scripts/enemy_stats.gd" id="2_yup54"]
-[ext_resource type="Script" uid="uid://rmds023jbgm5" path="res://Enemies/Scripts/StateMachine/States/enemy_spawn_state.gd" id="3_cshmy"]
-[ext_resource type="Script" uid="uid://cqxcfwr4g8um0" path="res://Enemies/Scripts/StateMachine/States/enemy_move_state.gd" id="4_rmwry"]
-[ext_resource type="Script" uid="uid://jg3odlqiclcg" path="res://Enemies/Scripts/StateMachine/States/enemy_before_attack_state.gd" id="5_icuit"]
-[ext_resource type="Script" uid="uid://bim8q14cv3ols" path="res://Enemies/Scripts/StateMachine/States/enemy_attack_state.gd" id="6_2y0aq"]
-[ext_resource type="Script" uid="uid://ytw3h1t0bt77" path="res://Enemies/Scripts/StateMachine/States/enemy_after_attack_state.gd" id="7_icuit"]
-[ext_resource type="Script" uid="uid://tgv45mg0p2u2" path="res://Enemies/Scripts/StateMachine/States/enemy_take_hit_state.gd" id="8_2y0aq"]
-[ext_resource type="Script" uid="uid://dyht6e5v0fcmv" path="res://Enemies/Scripts/StateMachine/States/enemy_destroyed_state.gd" id="9_moygg"]
-[ext_resource type="Texture2D" uid="uid://bfg0tse5jkdoc" path="res://icon.svg" id="10_h7aye"]
+[ext_resource type="Script" uid="uid://rmds023jbgm5" path="res://Enemies/Scripts/StateMachine/BasicEnemyStates/enemy_spawn_state.gd" id="3_cshmy"]
+[ext_resource type="PackedScene" uid="uid://282sj5706tr0" path="res://Enemies/Scripts/StateMachine/EnemyStateMachine.tscn" id="4_b82bn"]
+[ext_resource type="Script" uid="uid://cqxcfwr4g8um0" path="res://Enemies/Scripts/StateMachine/BasicEnemyStates/enemy_move_state.gd" id="4_rmwry"]
+[ext_resource type="Script" uid="uid://jg3odlqiclcg" path="res://Enemies/Scripts/StateMachine/BasicEnemyStates/enemy_before_attack_state.gd" id="5_icuit"]
+[ext_resource type="Script" uid="uid://bim8q14cv3ols" path="res://Enemies/Scripts/StateMachine/BasicEnemyStates/enemy_attack_state.gd" id="6_2y0aq"]
+[ext_resource type="Script" uid="uid://ytw3h1t0bt77" path="res://Enemies/Scripts/StateMachine/BasicEnemyStates/enemy_after_attack_state.gd" id="7_icuit"]
+[ext_resource type="Script" uid="uid://tgv45mg0p2u2" path="res://Enemies/Scripts/StateMachine/BasicEnemyStates/enemy_take_hit_state.gd" id="8_2y0aq"]
+[ext_resource type="Script" uid="uid://dyht6e5v0fcmv" path="res://Enemies/Scripts/StateMachine/BasicEnemyStates/enemy_destroyed_state.gd" id="9_moygg"]
+[ext_resource type="Texture2D" uid="uid://di4evugwwuiup" path="res://Enemies/Sprites/ship_5.png" id="11_bknx6"]
+[ext_resource type="PackedScene" uid="uid://dr6ye5e4ct00g" path="res://General Nodes/HitBox/HitBox.tscn" id="12_bknx6"]
+[ext_resource type="Script" uid="uid://dbb6686lmbr73" path="res://Enemies/Scripts/enemy_hurt_box.gd" id="14_dn4cw"]
 
 [sub_resource type="Resource" id="Resource_bknx6"]
 resource_local_to_scene = true
 script = ExtResource("2_yup54")
-move_speed = 10.0
+move_speed = 50.0
 metadata/_custom_type_script = "uid://bg0uh67ajb4uw"
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_yup54"]
-size = Vector2(129, 128)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b82bn"]
+height = 40.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dn4cw"]
+radius = 20.666668
+height = 41.333336
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b82bn"]
 
 [node name="BasicEnemy" type="CharacterBody2D"]
+scale = Vector2(1.5, 1.5)
+collision_layer = 2
 collision_mask = 0
 motion_mode = 1
 script = ExtResource("1_kxpqt")
 stats = SubResource("Resource_bknx6")
 
-[node name="EnemyStatsMachine" type="Node2D" parent="."]
-script = ExtResource("2_ynjfk")
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("11_bknx6")
 
-[node name="Spawn" type="Node2D" parent="EnemyStatsMachine"]
+[node name="EnemyStateMachine" parent="." instance=ExtResource("4_b82bn")]
+
+[node name="Spawn" type="Node2D" parent="EnemyStateMachine"]
 script = ExtResource("3_cshmy")
 
-[node name="Move" type="Node2D" parent="EnemyStatsMachine"]
+[node name="Move" type="Node2D" parent="EnemyStateMachine"]
 script = ExtResource("4_rmwry")
 
-[node name="BeforeAttack" type="Node2D" parent="EnemyStatsMachine"]
+[node name="BeforeAttack" type="Node2D" parent="EnemyStateMachine"]
 script = ExtResource("5_icuit")
 
-[node name="Attack" type="Node2D" parent="EnemyStatsMachine"]
+[node name="Attack" type="Node2D" parent="EnemyStateMachine"]
 script = ExtResource("6_2y0aq")
 
-[node name="AfterAttack" type="Node2D" parent="EnemyStatsMachine"]
+[node name="AfterAttack" type="Node2D" parent="EnemyStateMachine"]
 script = ExtResource("7_icuit")
 
-[node name="TakeHit" type="Node2D" parent="EnemyStatsMachine"]
+[node name="TakeHit" type="Node2D" parent="EnemyStateMachine"]
 script = ExtResource("8_2y0aq")
 
-[node name="Destroyed" type="Node2D" parent="EnemyStatsMachine"]
+[node name="Destroyed" type="Node2D" parent="EnemyStateMachine"]
 script = ExtResource("9_moygg")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(1, 0, 0.023529412, 1)
-texture = ExtResource("10_h7aye")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, 0)
-shape = SubResource("RectangleShape2D_yup54")
+shape = SubResource("CapsuleShape2D_b82bn")
+
+[node name="HitBox" parent="." instance=ExtResource("12_bknx6")]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("CapsuleShape2D_dn4cw")
+debug_color = Color(0.9643647, 1.0588765e-06, 0.4960732, 0.41960785)
+
+[node name="EnemyHurtBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("14_dn4cw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHurtBox"]
+position = Vector2(0, -12.666667)
+shape = SubResource("CircleShape2D_b82bn")
+debug_color = Color(0.7079317, 0.48784655, 0, 0.41960785)

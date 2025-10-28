@@ -1,0 +1,57 @@
+[gd_scene load_steps=13 format=3 uid="uid://dp4a2g31k81ja"]
+
+[ext_resource type="Script" uid="uid://dng0xr17uv5h5" path="res://Enemies/Scripts/split_enemy.gd" id="1_2dt8q"]
+[ext_resource type="Texture2D" uid="uid://d0kfrxcmmqnq5" path="res://Enemies/Sprites/ship_6.png" id="1_aieql"]
+[ext_resource type="Script" uid="uid://bygvyuvs8j1ok" path="res://Enemies/Scripts/StateMachine/enemy_state_machine.gd" id="2_4flmi"]
+[ext_resource type="Script" uid="uid://bg0uh67ajb4uw" path="res://Enemies/Scripts/enemy_stats.gd" id="2_06idi"]
+[ext_resource type="Script" uid="uid://dbb6686lmbr73" path="res://Enemies/Scripts/enemy_hurt_box.gd" id="3_1qst3"]
+[ext_resource type="Script" uid="uid://cqx18dqygub6n" path="res://General Nodes/HitBox/hit_box.gd" id="4_ljyrn"]
+[ext_resource type="Script" uid="uid://m4kt82yuui3d" path="res://Enemies/Scripts/StateMachine/SplitEnemyStates/split_enemy_spawn_state.gd" id="5_2dt8q"]
+[ext_resource type="Script" uid="uid://ddf57y7kgh0l4" path="res://Enemies/Scripts/StateMachine/SplitEnemyStates/split_enemy_move_state.gd" id="6_jkeq0"]
+[ext_resource type="Script" uid="uid://uabjgll7vl5q" path="res://Enemies/Scripts/StateMachine/SplitEnemyStates/split_enemy_destroyed_state.gd" id="7_hvb2w"]
+
+[sub_resource type="Resource" id="Resource_jkeq0"]
+script = ExtResource("2_06idi")
+metadata/_custom_type_script = "uid://bg0uh67ajb4uw"
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_06idi"]
+height = 48.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2dt8q"]
+radius = 22.0
+height = 48.0
+
+[node name="SplitEnemy" type="CharacterBody2D"]
+script = ExtResource("1_2dt8q")
+stats = SubResource("Resource_jkeq0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_aieql")
+
+[node name="EnemyStateMachine" type="Node2D" parent="."]
+script = ExtResource("2_4flmi")
+metadata/_custom_type_script = "uid://bygvyuvs8j1ok"
+
+[node name="Spawn" type="Node2D" parent="EnemyStateMachine"]
+script = ExtResource("5_2dt8q")
+
+[node name="Move" type="Node2D" parent="EnemyStateMachine"]
+script = ExtResource("6_jkeq0")
+
+[node name="Destroyed" type="Node2D" parent="EnemyStateMachine"]
+script = ExtResource("7_hvb2w")
+
+[node name="EnemyHurtBox" type="Area2D" parent="."]
+script = ExtResource("3_1qst3")
+metadata/_custom_type_script = "uid://dbb6686lmbr73"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHurtBox"]
+shape = SubResource("CapsuleShape2D_06idi")
+
+[node name="HitBox" type="Area2D" parent="."]
+script = ExtResource("4_ljyrn")
+metadata/_custom_type_script = "uid://cqx18dqygub6n"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("CapsuleShape2D_2dt8q")
+debug_color = Color(0.98036903, 0, 0.38421923, 0.41960785)

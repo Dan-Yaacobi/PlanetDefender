@@ -1,0 +1,141 @@
+[gd_scene load_steps=17 format=3 uid="uid://y5vg7nnk76p2"]
+
+[ext_resource type="Script" uid="uid://bvwte0fcx5yr5" path="res://Enemies/Scripts/enemy.gd" id="1_aiikp"]
+[ext_resource type="Texture2D" uid="uid://bwb3tmr4l3cih" path="res://Enemies/Sprites/ship_3.png" id="1_kdv5m"]
+[ext_resource type="Script" uid="uid://cqx18dqygub6n" path="res://General Nodes/HitBox/hit_box.gd" id="2_vgm0f"]
+[ext_resource type="Script" uid="uid://bg0uh67ajb4uw" path="res://Enemies/Scripts/enemy_stats.gd" id="2_wmx2m"]
+[ext_resource type="Script" uid="uid://dbb6686lmbr73" path="res://Enemies/Scripts/enemy_hurt_box.gd" id="3_yj2si"]
+[ext_resource type="PackedScene" uid="uid://282sj5706tr0" path="res://Enemies/Scripts/StateMachine/EnemyStateMachine.tscn" id="4_xuxty"]
+[ext_resource type="Script" uid="uid://nwtef5sid0ly" path="res://Enemies/Scripts/StateMachine/ShooterEnemyStates/shooter_move_state.gd" id="5_vli0u"]
+[ext_resource type="Script" uid="uid://cc3fj6nl308i2" path="res://Enemies/Scripts/StateMachine/ShooterEnemyStates/shooter_spawn_state.gd" id="5_wmx2m"]
+[ext_resource type="Script" uid="uid://d0ebn1ac3ncdf" path="res://Enemies/Scripts/StateMachine/ShooterEnemyStates/shooter_shoot_state.gd" id="6_wcwow"]
+[ext_resource type="Script" uid="uid://cjloigf5lkn5q" path="res://Enemies/Scripts/StateMachine/ShooterEnemyStates/shooter_pre_shoot_state.gd" id="7_xuxty"]
+
+[sub_resource type="Resource" id="Resource_xuxty"]
+script = ExtResource("2_wmx2m")
+move_speed = 70.0
+metadata/_custom_type_script = "uid://bg0uh67ajb4uw"
+
+[sub_resource type="Animation" id="Animation_xuxty"]
+resource_name = "PreShoot"
+length = 1.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.45, 0.6, 0.7, 0.8, 0.9, 1, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 0, 0, 1), Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1), Color(1, 0, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.1, 1.25, 1.35, 1.4133626, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.17453292519943295, -0.17453292519943295, 0.17453292519943295, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_vli0u"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wcwow"]
+_data = {
+&"PreShoot": SubResource("Animation_xuxty"),
+&"RESET": SubResource("Animation_vli0u")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xuxty"]
+radius = 12.0
+height = 32.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vli0u"]
+radius = 7.0
+
+[node name="ShooterEnemy" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_aiikp")
+stats = SubResource("Resource_xuxty")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_kdv5m")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
+libraries = {
+&"": SubResource("AnimationLibrary_wcwow")
+}
+
+[node name="EnemyStateMachine" parent="." instance=ExtResource("4_xuxty")]
+
+[node name="Spawn" type="Node2D" parent="EnemyStateMachine"]
+script = ExtResource("5_wmx2m")
+
+[node name="Move" type="Node2D" parent="EnemyStateMachine"]
+script = ExtResource("5_vli0u")
+
+[node name="PreShoot" type="Node2D" parent="EnemyStateMachine"]
+script = ExtResource("7_xuxty")
+
+[node name="Shoot" type="Node2D" parent="EnemyStateMachine"]
+script = ExtResource("6_wcwow")
+recoil_strength = 2.0
+
+[node name="ShootTimer" type="Timer" parent="EnemyStateMachine/Shoot"]
+wait_time = 3.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("2_vgm0f")
+metadata/_custom_type_script = "uid://cqx18dqygub6n"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(0, 1)
+shape = SubResource("CapsuleShape2D_xuxty")
+
+[node name="EnemyHurtBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("3_yj2si")
+metadata/_custom_type_script = "uid://dbb6686lmbr73"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHurtBox"]
+position = Vector2(0, -14)
+shape = SubResource("CircleShape2D_vli0u")
+debug_color = Color(0.9816832, 0, 0.37301975, 0.41960785)

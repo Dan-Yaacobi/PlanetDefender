@@ -1,0 +1,1 @@
+class_name InteractableSpwner extends Node2D
