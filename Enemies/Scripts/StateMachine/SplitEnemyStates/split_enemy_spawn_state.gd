@@ -13,7 +13,7 @@ func _ready() -> void:
 func Enter() -> void:
 	enemy.deactivate()
 	initiate = false
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(1).timeout
 	enemy.activate()
 	initiate = true
 	pass

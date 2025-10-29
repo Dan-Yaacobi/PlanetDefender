@@ -18,9 +18,13 @@ func _take_damage(_hurt_box: HurtBox) -> void:
 func activate() -> void:
 	enemy_hurt_box.monitoring = true
 	enemy_hurt_box.monitorable = true
+	hit_box.monitoring = true
+	hit_box.monitorable = true
 	pass
 	
 func deactivate() -> void:
 	enemy_hurt_box.monitoring = false
 	enemy_hurt_box.monitorable = false
+	hit_box.monitoring = false
+	hit_box.monitorable = false
 	pass

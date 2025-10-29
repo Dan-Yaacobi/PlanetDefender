@@ -5,5 +5,6 @@ signal enemy_hit
 func AreaEnetered( a : Area2D) -> void:
 	if a is HitBox:
 		a.TakeDamage(self)
-		enemy_hit.emit()
+		if a.get_parent() is Enemy:
+			enemy_hit.emit()
 	pass

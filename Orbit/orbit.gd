@@ -7,6 +7,9 @@ signal radius_changed(r: float)
 
 func _ready() -> void:
 	enemy_spawner.set_orbit(self)
+	var mat = CanvasItemMaterial.new()
+	mat.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
+	self.material = mat
 	
 func _draw() -> void:
 	draw_arc(Vector2.ZERO, radius, 0.0, TAU, 192, Color.WHITE, 10.0, true)
