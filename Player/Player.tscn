@@ -17,6 +17,8 @@ height = 41.0
 [node name="Player" type="CharacterBody2D"]
 scale = Vector2(2, 2)
 script = ExtResource("1_x2hbx")
+regular_speed = 900.0
+faster_speed = 1300.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_vlldt")
@@ -32,6 +34,7 @@ one_shot = true
 
 [node name="Shoot" type="Node2D" parent="PlayerStateMachine"]
 script = ExtResource("6_br620")
+shoot_speed = 1500.0
 
 [node name="AfterShootTimer" type="Timer" parent="PlayerStateMachine/Shoot"]
 wait_time = 0.2

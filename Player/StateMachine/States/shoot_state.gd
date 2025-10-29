@@ -5,7 +5,7 @@ class_name ShootPlayerState extends PlayerState
 
 var air_borne: bool = false
 var direction: Vector2
-var shoot_speed: float = 1200.0
+@export var shoot_speed: float = 1200.0
 # store a refernece to the player this belongs to
 func init() -> void:
 	pass
@@ -17,7 +17,6 @@ func _ready() -> void:
 #what happens when the player enters this state
 func Enter() -> void:
 	player.combo.reset_combo_hit()
-	shoot_speed = 1200.0
 	air_borne = false
 	player.toggle_hit(true)
 	after_shoot_timer.start()

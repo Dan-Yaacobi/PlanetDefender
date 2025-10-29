@@ -11,7 +11,6 @@ class_name Player extends CharacterBody2D
 @export var current_speed: float
 @export var regular_speed: float = 450.0       # px/s along the rim
 @export var faster_speed: float = 900.0
-@export var tangential_acceleration: float = 2200.0   # px/s^2 toward target speed
 
 @onready var rail: Orbit = $".."
 @onready var player_hurt_box: PlayerHurtBox = $PlayerHurtBox

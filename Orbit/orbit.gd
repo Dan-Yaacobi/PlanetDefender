@@ -7,13 +7,15 @@ signal radius_changed(r: float)
 
 func _ready() -> void:
 	enemy_spawner.set_orbit(self)
-	var mat = CanvasItemMaterial.new()
-	mat.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
-	self.material = mat
-	
-func _draw() -> void:
-	draw_arc(Vector2.ZERO, radius, 0.0, TAU, 192, Color.WHITE, 10.0, true)
 
+func _draw() -> void:
+	draw_arc(Vector2.ZERO, radius, 0.0, TAU, 192, Color.WHITE, 6.0, true)
+
+	var segs := 192
+	for i in range(4): # fewer layers also helps keep it tight
+		var w := 12.0 + i * 4.0   # thinner base + smaller increments
+		var a := 0.22 * pow(0.6, i)
+		draw_arc(Vector2.ZERO, radius, 0, TAU, segs, Color(0,1,0,a), w, true)
 func set_radius(r: float):
 	if !is_equal_approx(r, radius):
 		radius = max(1.0, r)
