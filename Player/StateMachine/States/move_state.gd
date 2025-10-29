@@ -21,7 +21,6 @@ func _ready() -> void:
 func Enter() -> void:
 	player.slow_down()
 	player.toggle_hit(false)
-	
 	pass
 	
 #what happens when the player exits this state

@@ -16,6 +16,7 @@ func _ready() -> void:
 
 #what happens when the player enters this state
 func Enter() -> void:
+	player.combo.reset_combo_hit()
 	shoot_speed = 1200.0
 	air_borne = false
 	player.toggle_hit(true)
@@ -27,6 +28,7 @@ func Enter() -> void:
 #what happens when the player exits this state
 func Exit() -> void:
 	player.rotation = Vector2.ZERO.angle()
+	player.combo.check_combo()
 	pass
 	
 #what happens during process update in this state

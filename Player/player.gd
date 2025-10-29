@@ -16,10 +16,11 @@ class_name Player extends CharacterBody2D
 @onready var rail: Orbit = $".."
 @onready var player_hurt_box: PlayerHurtBox = $PlayerHurtBox
 
+@onready var combo: Combo = $Combo
+
 var last_r
 var angle: float = 0.0
 var direction: int = 1
-
 
 func _ready():
 	current_speed = regular_speed
@@ -30,6 +31,7 @@ func _ready():
 	_snap_to_circle()
 	player_hurt_box.monitoring = false
 	player_hurt_box.enemy_hit.connect(_on_enemy_hit)
+	player_hurt_box.enemy_hit.connect(combo.add_combo)
 	
 func _on_radius_changed(new_r: float) -> void:
 	last_r = new_r

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://41d5qdr7qaks"]
+
+[ext_resource type="Script" uid="uid://bs1j03pw1qvt8" path="res://Player/Scripts/combo.gd" id="1_vmrav"]
+
+[node name="Combo" type="Node2D"]
+script = ExtResource("1_vmrav")
