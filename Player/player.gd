@@ -22,6 +22,7 @@ var angle: float = 0.0
 var direction: int = 1
 
 func _ready():
+	circle_radius = rail.radius
 	current_speed = regular_speed
 	player_state_machine.Initialize(self)
 	last_r = rail.radius

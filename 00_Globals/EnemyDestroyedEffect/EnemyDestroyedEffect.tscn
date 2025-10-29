@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=3 uid="uid://cnfe726dlvbsw"]
+
+[ext_resource type="Texture2D" uid="uid://bx87ipobovbaa" path="res://00_Globals/EnemyDestroyedEffect/Space Ships Explosion.png" id="1_2ksuo"]
+[ext_resource type="Script" uid="uid://cdq0ngcaxgwuj" path="res://00_Globals/EnemyDestroyedEffect/enemy_destroyed_effect.gd" id="2_qnn70"]
+
+[sub_resource type="Animation" id="Animation_2ksuo"]
+resource_name = "Explosion"
+length = 0.6
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.19823332, 0.29478663, 0.3862132, 0.47165862, 0.5588129),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6]
+}
+
+[sub_resource type="Animation" id="Animation_qnn70"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dmt6v"]
+_data = {
+&"Explosion": SubResource("Animation_2ksuo"),
+&"RESET": SubResource("Animation_qnn70")
+}
+
+[node name="EnemyDestroyedEffect" type="Sprite2D"]
+texture = ExtResource("1_2ksuo")
+hframes = 7
+script = ExtResource("2_qnn70")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_dmt6v")
+}

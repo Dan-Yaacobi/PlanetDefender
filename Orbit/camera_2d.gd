@@ -1,7 +1,7 @@
 class_name Camera extends Camera2D
 
 @onready var player: Player = $"../Player"
-@export var random_strength: float = 5.0
+@export var random_strength: float = 2.0
 @export var shake_fade: float = 5.0
 
 var rng = RandomNumberGenerator.new()

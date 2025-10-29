@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://ctq4iv4j4qmby"]
+[gd_scene load_steps=14 format=3 uid="uid://ctq4iv4j4qmby"]
 
 [ext_resource type="Script" uid="uid://bw3faqplt6lyn" path="res://Orbit/orbit.gd" id="1_lys3a"]
 [ext_resource type="PackedScene" uid="uid://cxrg875qjpt1q" path="res://Player/Player.tscn" id="2_2s1rm"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://d2jtfpfwusqqp" path="res://Enemies/Scenes/BasicEnemy.tscn" id="8_paane"]
 [ext_resource type="PackedScene" uid="uid://y5vg7nnk76p2" path="res://Enemies/Scenes/ShooterEnemy.tscn" id="9_ft8qp"]
 [ext_resource type="PackedScene" uid="uid://khgxhjuexcie" path="res://GUI/Combo.tscn" id="10_ft8qp"]
+[ext_resource type="Texture2D" uid="uid://ceke62jv25ike" path="res://GeneralAssets/StarParticle.png" id="11_itykm"]
 
 [sub_resource type="Resource" id="Resource_ubuf3"]
 script = ExtResource("3_xstqt")
@@ -17,8 +18,13 @@ max_hp = 20
 current_hp = 20
 metadata/_custom_type_script = "uid://3mkomcatevj3"
 
+[sub_resource type="Gradient" id="Gradient_itykm"]
+offsets = PackedFloat32Array(0, 0.26027396, 0.39726028, 0.5410959, 0.74657536, 1)
+colors = PackedColorArray(0, 0.45882353, 1, 0.6509804, 1, 0.9411765, 0.4627451, 0.5254902, 0.87058824, 0.63529414, 0.7764706, 0.5254902, 0.7254902, 0.32941177, 1, 0.5254902, 0.28627452, 0.84313726, 0.4627451, 0.52156866, 1, 0, 0.45882353, 0.5137255)
+
 [node name="Orbit" type="Node2D"]
 script = ExtResource("1_lys3a")
+radius = 450.0
 
 [node name="Planet" parent="." instance=ExtResource("2_ojbbq")]
 scale = Vector2(2, 2)
@@ -34,18 +40,21 @@ enemies = Array[PackedScene]([ExtResource("7_ubuf3"), ExtResource("8_paane"), Ex
 time_to_spawn = 4.0
 
 [node name="Combo" parent="." instance=ExtResource("10_ft8qp")]
-offset_left = -93.0
-offset_top = -478.0
-offset_right = -93.0
-offset_bottom = -478.0
+offset_left = 595.0
+offset_top = -35.0
+offset_right = 595.0
+offset_bottom = -35.0
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 z_index = -2
 amount = 5000
+texture = ExtResource("11_itykm")
 lifetime = 9.223372e+18
 explosiveness = 1.0
 emission_shape = 3
 emission_rect_extents = Vector2(1000, 1000)
 gravity = Vector2(0, 0)
-scale_amount_min = 0.1
-scale_amount_max = 2.0
+scale_amount_min = 0.0
+scale_amount_max = 0.6
+color_initial_ramp = SubResource("Gradient_itykm")
+hue_variation_max = 1.0

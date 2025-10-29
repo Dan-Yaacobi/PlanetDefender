@@ -2,7 +2,7 @@ class_name SplitEnemySpawnState extends EnemyState
 
 @onready var move: SplitEnemyMoveState = $"../Move"
 
-var initiate: bool = false
+var initialalize: bool = false
 func init() -> void:
 	pass
 	
@@ -11,11 +11,9 @@ func _ready() -> void:
 
 #what happens when the player enters this state
 func Enter() -> void:
-	enemy.deactivate()
-	initiate = false
+	initialalize = false
 	await get_tree().create_timer(1).timeout
-	enemy.activate()
-	initiate = true
+	initialalize = true
 	pass
 	
 #what happens when the player exits this state
@@ -24,7 +22,7 @@ func Exit() -> void:
 	
 #what happens during process update in this state
 func Process(_delta: float) -> EnemyState:
-	if initiate:
+	if initialalize:
 		return move
 	return null
 	
