@@ -1,6 +1,7 @@
 class_name MovePlayerState extends PlayerState
 
 @onready var shoot: ShootPlayerState = $"../Shoot"
+@onready var fuel_bar: FuelBar = $"../../FuelBar"
 
 # --- Constraint tuning (radial) ---
 @export var radial_correction_gain: float = 30.0      # pulls back to radius (velocity-bias)
@@ -10,6 +11,7 @@ class_name MovePlayerState extends PlayerState
 @export var faster_radial_correction_gain: float = 60.0
 
 var direction: Vector2
+var clicked_once: bool = false
 
 func init() -> void:
 	pass
@@ -19,61 +21,100 @@ func _ready() -> void:
 
 #what happens when the player enters this state
 func Enter() -> void:
+	clicked_once = false
 	player.slow_down()
 	player.toggle_hit(false)
 	pass
 	
 #what happens when the player exits this state
 func Exit() -> void:
+	player.angle += PI
 	pass
 	
 #what happens during process update in this state
 func Process(_delta: float) -> PlayerState:
+	#if not fuel_bar.has_enough_fuel():
+		#if Input.is_action_pressed("Click"):
+			#fuel_bar.stop_engine()
+			#player.slow_down()
 	return null
-	
+
 #what happens during _physics_process update in this state
 func Physics(_delta: float) -> PlayerState:
 	moving_across_circle(_delta)
 	player.move_and_slide()
 	direction = player.shoot_direction()
 	player.rotation = direction.angle()
+	
 	return null
 	
 #what happens during input events in this state
 func HandleInput(_event: InputEvent) -> PlayerState:
 	if _event.is_action_pressed("Click"):
-		player.speed_up()
+		#fuel_bar.start_engine()
+			player.speed_up()
+		#if not fuel_bar.has_enough_fuel():
+			#fuel_bar.stop_engine()
+			#if fuel_bar.enough_fuel_to_shoot():
+				#fuel_bar.use_fuel_to_shoot()
+				#return shoot
+		
 	if _event.is_action_released("Click"):
-		return shoot
+		#fuel_bar.stop_engine()
+		#if not fuel_bar.has_enough_fuel():
+			#get_viewport().set_input_as_handled()
+		#else:
+			#player.slow_down()
+			#if fuel_bar.enough_fuel_to_shoot():
+				#fuel_bar.use_fuel_to_shoot()
+				print("starting to shoot")
+				return shoot
 	return null
-	
+
+# player.orbit_angle keeps current angular position (in radians)
+# player.direction is +1 for CCW, -1 for CW
 
 func moving_across_circle(delta: float) -> void:
-	# Vector from planet center to player
-	var vector_to_center: Vector2 = player.global_position - player.circle_center
-	var current_radius: float = vector_to_center.length()
-	if current_radius < 1e-6:
-		# At the exact center there's no well-defined tangent
-		return
+	var radius: float = player.circle_radius
+	var center: Vector2 = player.circle_center
 
-	# Unit vectors: radial (outwards) and tangential (along orbit)
-	var radial_direction: Vector2 = vector_to_center / current_radius
-	var tangent_direction: Vector2 = Vector2(-radial_direction.y, radial_direction.x)  # CCW tangent
+	# Update orbit angle
+	player.angle += player.current_speed  * player.direction * delta
+	player.angle = wrapf(player.angle, 0.0, TAU)
 
-	# Desired tangential (orbital) speed based on player input and acceleration
-	var tangential_speed: float = player.current_speed * player.direction
+	# Compute new position
+	var offset: Vector2 = Vector2(cos(player.angle), sin(player.angle)) * radius
+	player.global_position = center + offset
 
-	# How far from the perfect orbit radius we are this frame
-	var radius_error: float = player.circle_radius - current_radius
+	# Store direction vector for sprite orientation, effects, etc.
 
-	# Radial velocity needed to correct that error in one timestep
-	var correction_strength: float = 1.0  # 1.0 = full correction this frame
-	var radial_velocity: float = (radius_error * correction_strength) / max(delta, 1e-6)
 
-	# Final velocity: tangent motion + small radial correction
-	player.velocity = tangent_direction * tangential_speed + radial_direction * radial_velocity
-
+#func __moving_across_circle(delta: float) -> void:
+	## Vector from planet center to player
+	#var vector_to_center: Vector2 = player.global_position - player.circle_center
+	#var current_radius: float = vector_to_center.length()
+	#if current_radius < 1e-6:
+		## At the exact center there's no well-defined tangent
+		#return
 #
+	## Unit vectors: radial (outwards) and tangential (along orbit)
+	#var radial_direction: Vector2 = vector_to_center / current_radius
+	#var tangent_direction: Vector2 = Vector2(-radial_direction.y, radial_direction.x)  # CCW tangent
+#
+	## Desired tangential (orbital) speed based on player input and acceleration
+	#var tangential_speed: float = player.current_speed * player.direction
+#
+	## How far from the perfect orbit radius we are this frame
+	#var radius_error: float = player.circle_radius - current_radius
+#
+	## Radial velocity needed to correct that error in one timestep
+	#var correction_strength: float = 1.0  # 1.0 = full correction this frame
+	#var radial_velocity: float = (radius_error * correction_strength) / max(delta, 1e-6)
+#
+	## Final velocity: tangent motion + small radial correction
+	#player.velocity = tangent_direction * tangential_speed + radial_direction * radial_velocity
+#
+##
 #func _moving_across_circle(delta: float) -> void:
 	#var to_center: Vector2 = player.global_position - player.circle_center
 	#var distance: float = to_center.length()

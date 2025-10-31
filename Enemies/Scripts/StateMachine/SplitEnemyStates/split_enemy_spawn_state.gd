@@ -1,6 +1,7 @@
 class_name SplitEnemySpawnState extends EnemyState
 
 @onready var move: SplitEnemyMoveState = $"../Move"
+@onready var sprite: Sprite2D = $"../../Sprite2D"
 
 var initialalize: bool = false
 func init() -> void:
@@ -11,8 +12,14 @@ func _ready() -> void:
 
 #what happens when the player enters this state
 func Enter() -> void:
+	
 	initialalize = false
+	enemy.modulate.a = 0.5
+
 	await get_tree().create_timer(1).timeout
+	
+	enemy.activate()
+	enemy.modulate.a = 1
 	initialalize = true
 	pass
 	

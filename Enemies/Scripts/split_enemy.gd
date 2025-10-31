@@ -2,9 +2,11 @@ class_name SplitEnemy extends Enemy
 
 @export var split_levels: int = 1
 @export var total_splits: int = 2
-var taken_damage: bool = false
-signal destroyed
 
+var taken_damage: bool = false
+
+signal destroyed
+	
 func activate_split() -> bool:
 	if split_levels > 0:
 		split_levels -= 1
@@ -19,15 +21,6 @@ func _take_damage(_hurt_box: HurtBox) -> void:
 	pass
 
 func activate() -> void:
-	enemy_hurt_box.monitoring = true
-	enemy_hurt_box.monitorable = true
 	hit_box.monitoring = true
 	hit_box.monitorable = true
-	pass
-	
-func deactivate() -> void:
-	enemy_hurt_box.monitoring = false
-	enemy_hurt_box.monitorable = false
-	hit_box.monitoring = false
-	hit_box.monitorable = false
 	pass

@@ -28,6 +28,7 @@ func Enter() -> void:
 func Exit() -> void:
 	player.rotation = Vector2.ZERO.angle()
 	player.combo.check_combo()
+	player._snap_to_circle()
 	pass
 	
 #what happens during process update in this state
