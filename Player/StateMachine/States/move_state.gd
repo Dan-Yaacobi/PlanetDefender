@@ -41,10 +41,11 @@ func Process(_delta: float) -> PlayerState:
 
 #what happens during _physics_process update in this state
 func Physics(_delta: float) -> PlayerState:
-	moving_across_circle(_delta)
-	player.move_and_slide()
 	direction = player.shoot_direction()
 	player.rotation = direction.angle()
+	moving_across_circle(_delta)
+	player.move_and_slide()
+
 	
 	return null
 	
@@ -67,7 +68,6 @@ func HandleInput(_event: InputEvent) -> PlayerState:
 			#player.slow_down()
 			#if fuel_bar.enough_fuel_to_shoot():
 				#fuel_bar.use_fuel_to_shoot()
-				print("starting to shoot")
 				return shoot
 	return null
 
@@ -77,17 +77,10 @@ func HandleInput(_event: InputEvent) -> PlayerState:
 func moving_across_circle(delta: float) -> void:
 	var radius: float = player.circle_radius
 	var center: Vector2 = player.circle_center
-
-	# Update orbit angle
-	player.angle += player.current_speed  * player.direction * delta
-	player.angle = wrapf(player.angle, 0.0, TAU)
-
-	# Compute new position
-	var offset: Vector2 = Vector2(cos(player.angle), sin(player.angle)) * radius
-	player.global_position = center + offset
-
-	# Store direction vector for sprite orientation, effects, etc.
-
+	
+	player.angle += (player.current_speed) * delta
+	player.angle = fmod(player.angle, TAU)
+	player.global_position = center + Vector2(cos(player.angle), sin(player.angle)) * radius
 
 #func __moving_across_circle(delta: float) -> void:
 	## Vector from planet center to player

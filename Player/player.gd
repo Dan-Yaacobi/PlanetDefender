@@ -17,7 +17,6 @@ class_name Player extends CharacterBody2D
 
 @onready var combo: Combo = $Combo
 
-var last_r
 var angle: float = 0.0
 var direction: int = 1
 var moving_at_regular_speed: bool = true
@@ -26,22 +25,14 @@ func _ready():
 	circle_radius = rail.radius
 	current_speed = regular_speed
 	player_state_machine.Initialize(self)
-	last_r = rail.radius
-	if rail.has_signal("radius_changed"):
-		rail.radius_changed.connect(_on_radius_changed)
 	_snap_to_circle()
 	player_hurt_box.monitoring = false
 	player_hurt_box.enemy_hit.connect(_on_enemy_hit)
 	player_hurt_box.enemy_hit.connect(combo.add_combo)
 
-func _on_radius_changed(new_r: float) -> void:
-	last_r = new_r
-	_snap_to_circle()
-
 func _snap_to_circle() -> void:
-	var dir := Vector2(cos(angle), sin(angle))
-	global_position = rail.global_position + dir * rail.radius
-
+	angle = (global_position - rail.global_position).angle()
+	
 func reached_circle() -> bool:
 	return (global_position - circle_center).length() > rail.radius
 

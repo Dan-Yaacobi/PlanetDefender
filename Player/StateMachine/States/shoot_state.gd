@@ -27,6 +27,7 @@ func Enter() -> void:
 #what happens when the player exits this state
 func Exit() -> void:
 	player.rotation = Vector2.ZERO.angle()
+	player.velocity = Vector2.ZERO
 	player.combo.check_combo()
 	player._snap_to_circle()
 	pass
@@ -41,6 +42,9 @@ func Process(_delta: float) -> PlayerState:
 func Physics(_delta: float) -> PlayerState:
 	player.velocity = direction * shoot_speed
 	player.move_and_slide()
+	var collision = player.move_and_collide(player.velocity * _delta)
+	if collision:
+		collide(collision)
 	return null
 	
 #what happens during input events in this state
@@ -50,9 +54,8 @@ func HandleInput(_event: InputEvent) -> PlayerState:
 func in_the_air() -> void:
 	air_borne = true
 
-func collide(delta) -> void:
-	var collision = player.move_and_collide(player.velocity * delta)
-	if collision:
-		var normal = collision.get_normal()
-		player.velocity = player.velocity.bounce(normal) # reflect like light
-		var interactable = collision.get_collider()
+func collide(_collision) -> void:
+	var normal = _collision.get_normal()
+	player.velocity = player.velocity.bounce(normal) # reflect like light
+	var interactable: Interactable = _collision.get_collider()
+	interactable.player_interact(player)
