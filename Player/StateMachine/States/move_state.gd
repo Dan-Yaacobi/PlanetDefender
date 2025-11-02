@@ -1,27 +1,24 @@
 class_name MovePlayerState extends PlayerState
 
 @onready var shoot: ShootPlayerState = $"../Shoot"
-@onready var fuel_bar: FuelBar = $"../../FuelBar"
-
-# --- Constraint tuning (radial) ---
-@export var radial_correction_gain: float = 30.0      # pulls back to radius (velocity-bias)
-@export var radial_damping_gain: float = 10.0         # damps radial oscillation
-
-@export var regular_radial_correction_gain: float = 30.0
-@export var faster_radial_correction_gain: float = 60.0
+#@onready var fuel_bar: FuelBar = $"../../FuelBar"
+@onready var accelerate_timer: Timer = $AccelerateTimer
 
 var direction: Vector2
-var clicked_once: bool = false
+var mouse_button_held: bool = false
+var go_to_shoot: bool = false
 
 func init() -> void:
+	accelerate_timer.timeout.connect(accelerate_over)
 	pass
 	
 func _ready() -> void:
 	pass
 
-#what happens when the player enters this state
+#what happens when the player enters this state	
 func Enter() -> void:
-	clicked_once = false
+	go_to_shoot = false
+	mouse_button_held = Input.is_action_pressed("Click")
 	player.slow_down()
 	player.toggle_hit(false)
 	pass
@@ -37,6 +34,9 @@ func Process(_delta: float) -> PlayerState:
 		#if Input.is_action_pressed("Click"):
 			#fuel_bar.stop_engine()
 			#player.slow_down()
+	if mouse_button_held:
+		if Input.is_action_just_released("Click"):
+			mouse_button_held = false
 	return null
 
 #what happens during _physics_process update in this state
@@ -44,44 +44,32 @@ func Physics(_delta: float) -> PlayerState:
 	direction = player.shoot_direction()
 	player.rotation = direction.angle()
 	moving_across_circle(_delta)
-	player.move_and_slide()
-
-	
+	if go_to_shoot:
+		return shoot
 	return null
 	
 #what happens during input events in this state
 func HandleInput(_event: InputEvent) -> PlayerState:
 	if _event.is_action_pressed("Click"):
-		#fuel_bar.start_engine()
-			player.speed_up()
-		#if not fuel_bar.has_enough_fuel():
-			#fuel_bar.stop_engine()
-			#if fuel_bar.enough_fuel_to_shoot():
-				#fuel_bar.use_fuel_to_shoot()
-				#return shoot
+		player.speed_up()
+		player.toggle_hit(true)
+		accelerate_timer.start()
 		
-	if _event.is_action_released("Click"):
-		#fuel_bar.stop_engine()
-		#if not fuel_bar.has_enough_fuel():
-			#get_viewport().set_input_as_handled()
-		#else:
-			#player.slow_down()
-			#if fuel_bar.enough_fuel_to_shoot():
-				#fuel_bar.use_fuel_to_shoot()
-				return shoot
+	if _event.is_action_released("Click") and not mouse_button_held:
+		accelerate_timer.stop()
+		return shoot
 	return null
-
-# player.orbit_angle keeps current angular position (in radians)
-# player.direction is +1 for CCW, -1 for CW
 
 func moving_across_circle(delta: float) -> void:
 	var radius: float = player.circle_radius
 	var center: Vector2 = player.circle_center
 	
-	player.angle += (player.current_speed) * delta
+	player.angle += (player.get_move_speed()) * delta
 	player.angle = fmod(player.angle, TAU)
 	player.global_position = center + Vector2(cos(player.angle), sin(player.angle)) * radius
 
+func accelerate_over() -> void:
+	go_to_shoot = true
 #func __moving_across_circle(delta: float) -> void:
 	## Vector from planet center to player
 	#var vector_to_center: Vector2 = player.global_position - player.circle_center

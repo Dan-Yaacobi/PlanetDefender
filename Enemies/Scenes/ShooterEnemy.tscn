@@ -14,6 +14,7 @@
 [sub_resource type="Resource" id="Resource_xuxty"]
 script = ExtResource("2_wmx2m")
 move_speed = 70.0
+damage = 0.5
 metadata/_custom_type_script = "uid://bg0uh67ajb4uw"
 
 [sub_resource type="Animation" id="Animation_xuxty"]

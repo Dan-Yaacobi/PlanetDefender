@@ -18,6 +18,7 @@
 resource_local_to_scene = true
 script = ExtResource("2_yup54")
 move_speed = 50.0
+damage = 2.0
 metadata/_custom_type_script = "uid://bg0uh67ajb4uw"
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b82bn"]

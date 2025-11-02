@@ -18,8 +18,8 @@ height = 41.0
 [node name="Player" type="CharacterBody2D"]
 scale = Vector2(2.5, 2.5)
 script = ExtResource("1_x2hbx")
-regular_speed = 1.0
-faster_speed = 2.0
+regular_speed = 1.5
+faster_speed = 2.5
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(1.961, 1.961, 1.961, 1)
@@ -32,15 +32,11 @@ script = ExtResource("3_kscxl")
 [node name="Move" type="Node2D" parent="PlayerStateMachine"]
 script = ExtResource("4_ko64m")
 
-[node name="SingleClickTimer" type="Timer" parent="PlayerStateMachine/Move"]
-one_shot = true
+[node name="AccelerateTimer" type="Timer" parent="PlayerStateMachine/Move"]
+wait_time = 3.0
 
 [node name="Shoot" type="Node2D" parent="PlayerStateMachine"]
 script = ExtResource("6_br620")
-shoot_speed = 1500.0
-
-[node name="AfterShootTimer" type="Timer" parent="PlayerStateMachine/Shoot"]
-wait_time = 0.2
 
 [node name="ChangeDirection" type="Node2D" parent="PlayerStateMachine"]
 script = ExtResource("8_gkbna")

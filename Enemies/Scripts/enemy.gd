@@ -13,9 +13,8 @@ var target: Vector2
 func _ready() -> void:
 	enemy_state_machine.Initialize(self)
 	enemy_hurt_box.hit_planet.connect(_dealt_damage)
+	enemy_hurt_box.damage = stats.damage
 	_extra_ready_functionality()
-	await get_tree().create_timer(1).timeout
-	
 	hit_box.Damaged.connect(_take_damage)
 
 	

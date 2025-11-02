@@ -24,3 +24,4 @@ func get_combo() -> int:
 
 func reset_combo_hit() -> void:
 	enemy_was_hit = false
+	

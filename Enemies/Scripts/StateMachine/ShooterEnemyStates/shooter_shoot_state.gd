@@ -48,6 +48,7 @@ func shoot() -> void:
 	var new_projectile: Projectile = PROJECTILE.instantiate()
 	new_projectile.direction = calc_direction()
 	new_projectile.global_position = enemy.global_position
+	new_projectile.set_damage(enemy.stats.damage)
 	get_tree().root.call_deferred("add_child" , new_projectile)
 	recoil()
 	done_shooting = true

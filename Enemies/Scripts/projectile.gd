@@ -6,15 +6,19 @@ class_name Projectile extends Node2D
 @export var speed: float = 20
 
 var direction: Vector2
+var damage: float = 1.0
 
 func _ready() -> void:
 	hit_box.Damaged.connect(_destroyed)
 	hurt_box.dealt_damage.connect(_dealt_damage)
+	hurt_box.damage = damage
 
 func _physics_process(delta: float) -> void:
 	global_position += direction * speed * delta
 	rotation = direction.angle() + PI/2
 
+func set_damage(_amount: float) -> void:
+	damage = _amount
 func _dealt_damage() -> void:
 	queue_free()
 

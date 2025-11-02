@@ -34,7 +34,7 @@ func _can_summon() -> bool:
 func _get_spawn_point() -> Vector2:
 	var _position: Vector2
 	var radius = current_orbit.get_radius()
-	var spawn_radius = randf_range(radius*0.7, radius*2)
+	var spawn_radius = randf_range(radius, radius*1.5)
 	var angle = randf_range(0,TAU)
 	_position = Vector2(cos(angle),sin(angle)) * spawn_radius
 	return _position
