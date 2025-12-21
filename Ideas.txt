@@ -1,0 +1,10 @@
+use coins to reroll quest
+
+levels are time based
+getting powers up every X seconds
+
+one of the power ups is always money
+
+objective have tiers
+
+how many objectives do you have at a current moment

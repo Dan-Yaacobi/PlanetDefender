@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cxrg875qjpt1q"]
+[gd_scene load_steps=13 format=3 uid="uid://cxrg875qjpt1q"]
 
 [ext_resource type="Script" uid="uid://dkwu74aisu8bi" path="res://Player/player.gd" id="1_x2hbx"]
 [ext_resource type="Texture2D" uid="uid://bx7wg5n7ekffl" path="res://Player/Sprites/ship_7.png" id="2_s1rgi"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://41d5qdr7qaks" path="res://Player/Scenes/Combo.tscn" id="8_j23h2"]
 [ext_resource type="Script" uid="uid://dw4pu10g7os2a" path="res://Player/Scripts/player_hurt_box.gd" id="8_s1rgi"]
 [ext_resource type="Script" uid="uid://ct2uxqubqi3eg" path="res://Player/Scripts/fuel.gd" id="9_j23h2"]
+[ext_resource type="PackedScene" uid="uid://bl6peabakbgeb" path="res://PowerUps/Scenes/ElectricPulse.tscn" id="10_0j2ni"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s1rgi"]
 height = 41.0
@@ -20,6 +21,7 @@ scale = Vector2(2.5, 2.5)
 script = ExtResource("1_x2hbx")
 regular_speed = 1.5
 faster_speed = 2.5
+shoot_speed = 850.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(1.961, 1.961, 1.961, 1)
@@ -73,3 +75,5 @@ shoot_fuel_cost = 0.1
 
 [node name="CooldownTimer" type="Timer" parent="FuelBar"]
 wait_time = 0.5
+
+[node name="ElectricPulse" parent="." instance=ExtResource("10_0j2ni")]

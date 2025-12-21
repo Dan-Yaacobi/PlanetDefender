@@ -1,21 +1,24 @@
-[gd_scene load_steps=14 format=3 uid="uid://ctq4iv4j4qmby"]
+[gd_scene load_steps=19 format=3 uid="uid://ctq4iv4j4qmby"]
 
-[ext_resource type="Script" uid="uid://bw3faqplt6lyn" path="res://Orbit/orbit.gd" id="1_lys3a"]
+[ext_resource type="Script" uid="uid://bw3faqplt6lyn" path="res://Orbit/Scripts/orbit.gd" id="1_lys3a"]
 [ext_resource type="PackedScene" uid="uid://cxrg875qjpt1q" path="res://Player/Player.tscn" id="2_2s1rm"]
 [ext_resource type="PackedScene" uid="uid://cqhcpy2sdjl52" path="res://Planets/Planet.tscn" id="2_ojbbq"]
 [ext_resource type="PackedScene" uid="uid://bdxn04e4ef64h" path="res://Spawners/EnemySpawner.tscn" id="3_2s1rm"]
 [ext_resource type="Script" uid="uid://3mkomcatevj3" path="res://Planets/planet_stats.gd" id="3_xstqt"]
-[ext_resource type="Script" uid="uid://c00xrtumuh2sr" path="res://Orbit/camera_2d.gd" id="5_ubuf3"]
+[ext_resource type="Script" uid="uid://c00xrtumuh2sr" path="res://Orbit/Scripts/camera_2d.gd" id="5_ubuf3"]
 [ext_resource type="PackedScene" uid="uid://dp4a2g31k81ja" path="res://Enemies/Scenes/SplitEnemy.tscn" id="7_ubuf3"]
 [ext_resource type="PackedScene" uid="uid://d2jtfpfwusqqp" path="res://Enemies/Scenes/BasicEnemy.tscn" id="8_itykm"]
 [ext_resource type="PackedScene" uid="uid://y5vg7nnk76p2" path="res://Enemies/Scenes/ShooterEnemy.tscn" id="9_1rxrq"]
 [ext_resource type="PackedScene" uid="uid://khgxhjuexcie" path="res://GUI/Combo.tscn" id="10_ft8qp"]
-[ext_resource type="Texture2D" uid="uid://ceke62jv25ike" path="res://GeneralAssets/StarParticle.png" id="11_itykm"]
+[ext_resource type="Texture2D" uid="uid://cao481bvmkv15" path="res://GeneralAssets/StarParticle1.png" id="11_ocpbt"]
+[ext_resource type="PackedScene" uid="uid://ce3gfxl8jr11q" path="res://Orbit/OrbitStateMachine.tscn" id="12_1rxrq"]
+[ext_resource type="Texture2D" uid="uid://kjx1b0psvaxa" path="res://GeneralAssets/StarParticle2.png" id="12_xlvbo"]
+[ext_resource type="Texture2D" uid="uid://3v4kdi88a2rf" path="res://GeneralAssets/StarParticle3.png" id="13_6uchc"]
+[ext_resource type="Script" uid="uid://bju21j5q6xwsq" path="res://Orbit/fighting_state.gd" id="13_kqh2c"]
+[ext_resource type="Script" uid="uid://h2gmdaluwek2" path="res://Orbit/upgrading.gd" id="14_d4qjy"]
 
 [sub_resource type="Resource" id="Resource_ubuf3"]
 script = ExtResource("3_xstqt")
-max_hp = 20
-current_hp = 20
 metadata/_custom_type_script = "uid://3mkomcatevj3"
 
 [sub_resource type="Gradient" id="Gradient_itykm"]
@@ -24,7 +27,7 @@ colors = PackedColorArray(0, 0.45882353, 1, 0.6509804, 1, 0.9411765, 0.4627451, 
 
 [node name="Orbit" type="Node2D"]
 script = ExtResource("1_lys3a")
-radius = 450.0
+radius = 400.0
 
 [node name="Planet" parent="." instance=ExtResource("2_ojbbq")]
 scale = Vector2(2, 2)
@@ -47,8 +50,8 @@ offset_bottom = -35.0
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 z_index = -2
-amount = 5000
-texture = ExtResource("11_itykm")
+amount = 2000
+texture = ExtResource("11_ocpbt")
 lifetime = 9.223372e+18
 explosiveness = 1.0
 emission_shape = 3
@@ -58,3 +61,39 @@ scale_amount_min = 0.0
 scale_amount_max = 0.6
 color_initial_ramp = SubResource("Gradient_itykm")
 hue_variation_max = 1.0
+
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="."]
+z_index = -2
+amount = 2000
+texture = ExtResource("12_xlvbo")
+lifetime = 9.223372e+18
+explosiveness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(1000, 1000)
+gravity = Vector2(0, 0)
+scale_amount_min = 0.0
+scale_amount_max = 0.6
+color_initial_ramp = SubResource("Gradient_itykm")
+hue_variation_max = 1.0
+
+[node name="CPUParticles2D3" type="CPUParticles2D" parent="."]
+z_index = -2
+amount = 2000
+texture = ExtResource("13_6uchc")
+lifetime = 9.223372e+18
+explosiveness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(1000, 1000)
+gravity = Vector2(0, 0)
+scale_amount_min = 0.0
+scale_amount_max = 0.6
+color_initial_ramp = SubResource("Gradient_itykm")
+hue_variation_max = 1.0
+
+[node name="OrbitStateMachine" parent="." instance=ExtResource("12_1rxrq")]
+
+[node name="Fighting" type="Node2D" parent="OrbitStateMachine"]
+script = ExtResource("13_kqh2c")
+
+[node name="UpgradingPlanet" type="Node2D" parent="OrbitStateMachine"]
+script = ExtResource("14_d4qjy")

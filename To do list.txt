@@ -1,0 +1,2 @@
+1. build the objective system - you have a quest during the run. completing the quest gives you a choice between 3 power ups. 
+ - make the system with a basic quest of kill 5 enemies and an empty choice of upgrades
