@@ -25,8 +25,8 @@ func _ready():
 	player_state_machine.Initialize(self)
 	_snap_to_circle()
 	player_hurt_box.monitoring = false
-	player_hurt_box.enemy_hit.connect(_on_enemy_hit)
-	player_hurt_box.enemy_hit.connect(combo.add_combo)
+	player_hurt_box.hit.connect(_on_enemy_hit)
+	player_hurt_box.hit.connect(combo.add_combo)
 	
 
 func _physics_process(_delta: float) -> void:
@@ -50,8 +50,13 @@ func slow_down() -> void:
 func toggle_hit(can_hit: bool) -> void:
 	player_hurt_box.monitoring = can_hit
 
-func _on_enemy_hit() -> void:
+func _on_enemy_hit(_enemy: Enemy) -> void:
 	camera.apply_shake()
+	if _enemy:
+		if player_state_machine.curr_state is ShootPlayerState:
+			EventBus.hit_enemy_shoot.emit(_enemy)
+		elif player_state_machine.curr_state is MovePlayerState:
+			EventBus.hit_enemy_move.emit(_enemy)
 
 func get_move_speed() -> float:
 	var combo_speed_addition: float = combo.combo * (regular_speed/10)

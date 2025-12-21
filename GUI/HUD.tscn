@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://c7jahc2sbvl50"]
+
+[ext_resource type="Script" uid="uid://bwdjknoax41ak" path="res://GUI/hud.gd" id="1_wo728"]
+
+[node name="Hud" type="CanvasLayer"]
+script = ExtResource("1_wo728")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Objective" type="Label" parent="Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0

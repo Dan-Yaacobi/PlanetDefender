@@ -6,7 +6,7 @@ class_name Combo extends Node2D
 
 var enemy_was_hit: bool = false
 
-func add_combo() -> void:
+func add_combo(_entity: Node2D = null) -> void:
 	if not enemy_was_hit:
 		enemy_was_hit = true
 	combo += 1

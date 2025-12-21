@@ -4,7 +4,7 @@ class_name Enemy extends CharacterBody2D
 
 const ENEMY_DESTROYED_EFFECT = preload("uid://cnfe726dlvbsw")
 
-@onready var hit_box: Area2D = $HitBox
+@onready var hit_box: HitBox = $HitBox
 @onready var enemy_hurt_box: EnemyHurtBox = $EnemyHurtBox
 @onready var enemy_state_machine: EnemyStateMachine = $EnemyStateMachine
 
@@ -16,7 +16,7 @@ func _ready() -> void:
 	enemy_hurt_box.damage = stats.damage
 	_extra_ready_functionality()
 	hit_box.Damaged.connect(_take_damage)
-
+	hit_box.set_entity(self)
 	
 func set_target(_target: Vector2) -> void:
 	target = _target

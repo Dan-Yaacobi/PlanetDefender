@@ -26,6 +26,7 @@ func Exit() -> void:
 	player.rotation = Vector2.ZERO.angle()
 	player.velocity = Vector2.ZERO
 	player.combo.check_combo()
+	EventBus.end_shoot_state.emit()
 	pass
 	
 #what happens during process update in this state
