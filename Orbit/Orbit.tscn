@@ -1,21 +1,20 @@
-[gd_scene load_steps=14 format=3 uid="uid://ctq4iv4j4qmby"]
+[gd_scene load_steps=15 format=3 uid="uid://ctq4iv4j4qmby"]
 
-[ext_resource type="Script" uid="uid://bw3faqplt6lyn" path="res://Orbit/orbit.gd" id="1_lys3a"]
+[ext_resource type="Script" uid="uid://bw3faqplt6lyn" path="res://Orbit/orbit.gd" id="1_itykm"]
 [ext_resource type="PackedScene" uid="uid://cxrg875qjpt1q" path="res://Player/Player.tscn" id="2_2s1rm"]
 [ext_resource type="PackedScene" uid="uid://cqhcpy2sdjl52" path="res://Planets/Planet.tscn" id="2_ojbbq"]
 [ext_resource type="PackedScene" uid="uid://bdxn04e4ef64h" path="res://Spawners/EnemySpawner.tscn" id="3_2s1rm"]
 [ext_resource type="Script" uid="uid://3mkomcatevj3" path="res://Planets/planet_stats.gd" id="3_xstqt"]
-[ext_resource type="Script" uid="uid://c00xrtumuh2sr" path="res://Orbit/camera_2d.gd" id="5_ubuf3"]
+[ext_resource type="Script" uid="uid://c00xrtumuh2sr" path="res://Orbit/camera_2d.gd" id="5_itykm"]
 [ext_resource type="PackedScene" uid="uid://dp4a2g31k81ja" path="res://Enemies/Scenes/SplitEnemy.tscn" id="7_ubuf3"]
 [ext_resource type="PackedScene" uid="uid://d2jtfpfwusqqp" path="res://Enemies/Scenes/BasicEnemy.tscn" id="8_itykm"]
 [ext_resource type="PackedScene" uid="uid://y5vg7nnk76p2" path="res://Enemies/Scenes/ShooterEnemy.tscn" id="9_1rxrq"]
 [ext_resource type="PackedScene" uid="uid://khgxhjuexcie" path="res://GUI/Combo.tscn" id="10_ft8qp"]
 [ext_resource type="Texture2D" uid="uid://ceke62jv25ike" path="res://GeneralAssets/StarParticle.png" id="11_itykm"]
+[ext_resource type="PackedScene" uid="uid://c7jahc2sbvl50" path="res://GUI/HUD.tscn" id="12_1rxrq"]
 
 [sub_resource type="Resource" id="Resource_ubuf3"]
 script = ExtResource("3_xstqt")
-max_hp = 20
-current_hp = 20
 metadata/_custom_type_script = "uid://3mkomcatevj3"
 
 [sub_resource type="Gradient" id="Gradient_itykm"]
@@ -23,7 +22,7 @@ offsets = PackedFloat32Array(0, 0.26027396, 0.39726028, 0.5410959, 0.74657536, 1
 colors = PackedColorArray(0, 0.45882353, 1, 0.6509804, 1, 0.9411765, 0.4627451, 0.5254902, 0.87058824, 0.63529414, 0.7764706, 0.5254902, 0.7254902, 0.32941177, 1, 0.5254902, 0.28627452, 0.84313726, 0.4627451, 0.52156866, 1, 0, 0.45882353, 0.5137255)
 
 [node name="Orbit" type="Node2D"]
-script = ExtResource("1_lys3a")
+script = ExtResource("1_itykm")
 radius = 450.0
 
 [node name="Planet" parent="." instance=ExtResource("2_ojbbq")]
@@ -31,15 +30,17 @@ scale = Vector2(2, 2)
 stats = SubResource("Resource_ubuf3")
 
 [node name="Player" parent="." instance=ExtResource("2_2s1rm")]
+shoot_speed = 850.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
-script = ExtResource("5_ubuf3")
+script = ExtResource("5_itykm")
 
 [node name="EnemySpawner" parent="." instance=ExtResource("3_2s1rm")]
 enemies = Array[PackedScene]([ExtResource("7_ubuf3"), ExtResource("8_itykm"), ExtResource("9_1rxrq")])
 time_to_spawn = 4.0
 
 [node name="Combo" parent="." instance=ExtResource("10_ft8qp")]
+visible = false
 offset_left = 595.0
 offset_top = -35.0
 offset_right = 595.0
@@ -58,3 +59,5 @@ scale_amount_min = 0.0
 scale_amount_max = 0.6
 color_initial_ramp = SubResource("Gradient_itykm")
 hue_variation_max = 1.0
+
+[node name="Hud" parent="." instance=ExtResource("12_1rxrq")]

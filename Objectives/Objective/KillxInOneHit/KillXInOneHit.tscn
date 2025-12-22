@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c7w6g6suxvw2i"]
+
+[ext_resource type="Script" uid="uid://bi8xoiwnw1yxi" path="res://Objectives/Objective/KillxInOneHit/kill_x_in_one_hit.gd" id="1_dwanp"]
+
+[node name="KillXInOneHit" type="Node2D"]
+script = ExtResource("1_dwanp")

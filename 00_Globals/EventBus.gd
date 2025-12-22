@@ -6,3 +6,10 @@ signal combo_added
 signal hit_enemy_shoot(enemy: Enemy)
 signal hit_enemy_move(enemy: Enemy)
 signal end_shoot_state
+
+signal objective_completed(id: int)
+
+signal update_objective(id: int, text: String)
+signal new_objective(id: int)
+
+signal level_timer(time: float)

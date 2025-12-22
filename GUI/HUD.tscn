@@ -1,17 +1,82 @@
-[gd_scene load_steps=2 format=3 uid="uid://c7jahc2sbvl50"]
+[gd_scene load_steps=9 format=3 uid="uid://c7jahc2sbvl50"]
 
 [ext_resource type="Script" uid="uid://bwdjknoax41ak" path="res://GUI/hud.gd" id="1_wo728"]
+[ext_resource type="PackedScene" uid="uid://1mk6ltub3xpm" path="res://GUI/Objectives/ObjectiveDisplay.tscn" id="2_5qcxp"]
+[ext_resource type="Script" uid="uid://bqso7e02rgti0" path="res://GUI/Objectives/objective_manager.gd" id="2_v44ap"]
+[ext_resource type="PackedScene" uid="uid://b1y7c0rkb6ao2" path="res://Objectives/Objective/KillX/KillX.tscn" id="3_88ec2"]
+[ext_resource type="PackedScene" uid="uid://c7w6g6suxvw2i" path="res://Objectives/Objective/KillxInOneHit/KillXInOneHit.tscn" id="4_exq4t"]
+[ext_resource type="Script" uid="uid://dr3ilfmjhu8n3" path="res://GUI/power_ups.gd" id="5_ljy7s"]
+[ext_resource type="PackedScene" uid="uid://bd1k7yfn8j64o" path="res://GUI/PowerUps/PowerUp.tscn" id="6_exq4t"]
+[ext_resource type="Script" uid="uid://bc3lw202dsrx5" path="res://GUI/clock.gd" id="8_5x4jq"]
 
 [node name="Hud" type="CanvasLayer"]
 script = ExtResource("1_wo728")
 
-[node name="Control" type="Control" parent="."]
+[node name="ObjectivesManager" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 427.0
+offset_bottom = 127.0
+mouse_filter = 2
+mouse_behavior_recursive = 1
+script = ExtResource("2_v44ap")
+objectives = Array[PackedScene]([ExtResource("3_88ec2"), ExtResource("4_exq4t")])
 
-[node name="Objective" type="Label" parent="Control"]
+[node name="ObjectiveDisplay1" parent="ObjectivesManager" instance=ExtResource("2_5qcxp")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 3.0
+offset_top = 2.0
+offset_right = 434.0
+offset_bottom = 129.0
+grow_horizontal = 1
+grow_vertical = 1
+available = true
+
+[node name="PowerUps" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 512.0
+offset_top = 377.0
+offset_right = 998.0
+offset_bottom = 565.0
+mouse_filter = 1
+script = ExtResource("5_ljy7s")
+
+[node name="PowerUp" parent="PowerUps" instance=ExtResource("6_exq4t")]
+layout_mode = 1
+offset_right = -220.0
+offset_bottom = -76.0
+
+[node name="PowerUp2" parent="PowerUps" instance=ExtResource("6_exq4t")]
+layout_mode = 1
+offset_left = 179.0
+offset_top = 1.0
+offset_right = -44.0
+offset_bottom = -81.0
+
+[node name="PowerUp3" parent="PowerUps" instance=ExtResource("6_exq4t")]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.394
+anchor_bottom = 0.716
+offset_left = 358.0
+offset_top = 6.0
+offset_right = -0.14202881
+
+[node name="Clock" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 766.0
+offset_top = 15.0
+offset_right = 766.0
+offset_bottom = 15.0
+script = ExtResource("8_5x4jq")
+
+[node name="Time" type="Label" parent="Clock"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
+text = "2:00"
