@@ -69,14 +69,16 @@ offset_right = -0.14202881
 [node name="Clock" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 766.0
-offset_top = 15.0
-offset_right = 766.0
-offset_bottom = 15.0
+offset_left = 1332.0
+offset_top = 30.0
+offset_right = 1332.0
+offset_bottom = 30.0
 script = ExtResource("8_5x4jq")
 
 [node name="Time" type="Label" parent="Clock"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
+scale = Vector2(0.05, 0.05)
+theme_override_font_sizes/font_size = 1000
 text = "2:00"

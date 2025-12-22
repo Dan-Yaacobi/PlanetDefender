@@ -7,7 +7,8 @@ signal radius_changed(r: float)
 
 func _ready() -> void:
 	enemy_spawner.set_orbit(self)
-
+	EventBus.level_timer.emit(2.5)
+	
 func _draw() -> void:
 	draw_arc(Vector2.ZERO, radius, 0.0, TAU, 192, Color.WHITE, 2.0, true)
 

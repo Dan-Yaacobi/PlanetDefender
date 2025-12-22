@@ -13,3 +13,4 @@ signal update_objective(id: int, text: String)
 signal new_objective(id: int)
 
 signal level_timer(time: float)
+signal time_over
