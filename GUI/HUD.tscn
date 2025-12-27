@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c7jahc2sbvl50"]
+[gd_scene load_steps=10 format=3 uid="uid://c7jahc2sbvl50"]
 
 [ext_resource type="Script" uid="uid://bwdjknoax41ak" path="res://GUI/hud.gd" id="1_wo728"]
 [ext_resource type="PackedScene" uid="uid://1mk6ltub3xpm" path="res://GUI/Objectives/ObjectiveDisplay.tscn" id="2_5qcxp"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://dr3ilfmjhu8n3" path="res://GUI/power_ups.gd" id="5_ljy7s"]
 [ext_resource type="PackedScene" uid="uid://bd1k7yfn8j64o" path="res://GUI/PowerUps/PowerUp.tscn" id="6_exq4t"]
 [ext_resource type="Script" uid="uid://bc3lw202dsrx5" path="res://GUI/clock.gd" id="8_5x4jq"]
+[ext_resource type="Texture2D" uid="uid://da7ps63fvnu4k" path="res://Assets/Timer bar.png" id="10_sjud5"]
 
 [node name="Hud" type="CanvasLayer"]
 script = ExtResource("1_wo728")
@@ -27,10 +28,10 @@ layout_mode = 0
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 3.0
-offset_top = 2.0
-offset_right = 434.0
-offset_bottom = 129.0
+offset_left = 19.0
+offset_top = 12.0
+offset_right = 19.0
+offset_bottom = 12.0
 grow_horizontal = 1
 grow_vertical = 1
 available = true
@@ -38,10 +39,10 @@ available = true
 [node name="PowerUps" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 512.0
-offset_top = 377.0
-offset_right = 998.0
-offset_bottom = 565.0
+offset_left = 110.0
+offset_top = 157.0
+offset_right = 596.0
+offset_bottom = 345.0
 mouse_filter = 1
 script = ExtResource("5_ljy7s")
 
@@ -69,16 +70,22 @@ offset_right = -0.14202881
 [node name="Clock" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 1332.0
-offset_top = 30.0
-offset_right = 1332.0
-offset_bottom = 30.0
+offset_left = 625.0
+offset_top = 41.0
+offset_right = 625.0
+offset_bottom = 41.0
 script = ExtResource("8_5x4jq")
+
+[node name="TimerBar" type="Sprite2D" parent="Clock"]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("10_sjud5")
 
 [node name="Time" type="Label" parent="Clock"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-scale = Vector2(0.05, 0.05)
-theme_override_font_sizes/font_size = 1000
+offset_left = -29.0
+offset_top = -12.0
+offset_right = 2207.0
+offset_bottom = 1114.0
+scale = Vector2(0.04, 0.04)
+theme_override_font_sizes/font_size = 900
 text = "2:00"

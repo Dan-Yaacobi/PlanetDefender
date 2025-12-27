@@ -25,10 +25,11 @@ func Process(_delta: float) -> EnemyState:
 	
 #what happens during _physics_process update in this state
 func Physics(_delta: float) -> EnemyState:
-	var curr_direction = enemy.calc_direction()
-	enemy.velocity += curr_direction * enemy.get_speed() * _delta
+	enemy.stats.movement.set_entity(enemy)
+	enemy.stats.movement.apply_movement(_delta,enemy.target)
 	enemy.move_and_slide()
-	enemy.rotation = curr_direction.angle() + PI/2
+	enemy.rotation = enemy.velocity.angle() + PI/2
+	
 	if calc_distance() <= distance_to_attack:
 		return pre_shoot
 	return null

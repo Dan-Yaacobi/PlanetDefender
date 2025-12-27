@@ -11,8 +11,8 @@ func extra_setup_methods(tier: int) -> void:
 	update_label()
 
 func update_label() -> void:
-	var label_text: String = "Kill " + str(total_amount) + " Enemies: " + str(amount_left) + " Left"
-	EventBus.update_objective.emit(display_id,label_text)
+	var label_text: String = "Kill " + str(total_amount) + " Enemies"
+	EventBus.update_objective.emit(display_id,label_text, str(amount_left), str(total_amount))
 	
 func update_objective(_enemy: Enemy) -> void:
 	if active:

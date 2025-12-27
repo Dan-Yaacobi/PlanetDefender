@@ -1,7 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://744fi3gyicso"]
+[gd_scene load_steps=4 format=3 uid="uid://744fi3gyicso"]
 
 [ext_resource type="Script" uid="uid://kt4ite6whhtg" path="res://General Nodes/HpBar/hp_bar.gd" id="1_50vdd"]
+[ext_resource type="Texture2D" uid="uid://vrr0hx3xg40p" path="res://Assets/Life bar.png" id="1_ufvh2"]
+[ext_resource type="Texture2D" uid="uid://ecu31bej1wdb" path="res://Assets/Life bar Strokeless.png" id="2_3jro3"]
 
-[node name="HpBar" type="ProgressBar"]
+[node name="HpBar" type="TextureProgressBar"]
 modulate = Color(1, 0, 0, 1)
+offset_right = 2888.0
+offset_bottom = 333.0
+scale = Vector2(0.05, 0.05)
+texture_over = ExtResource("1_ufvh2")
+texture_progress = ExtResource("2_3jro3")
 script = ExtResource("1_50vdd")

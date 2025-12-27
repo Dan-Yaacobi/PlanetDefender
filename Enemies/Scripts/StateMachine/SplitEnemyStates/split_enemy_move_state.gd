@@ -27,10 +27,10 @@ func Process(_delta: float) -> EnemyState:
 	return null
 	
 func Physics(_delta: float) -> EnemyState:
-	var curr_direction = calc_direction()
-	enemy.velocity = curr_direction * enemy.get_speed()
+	enemy.stats.movement.set_entity(enemy)
+	enemy.stats.movement.apply_movement(_delta,enemy.target)
 	enemy.move_and_slide()
-	enemy.rotation = curr_direction.angle() + PI/2
+	enemy.rotation = enemy.velocity.angle() + PI/2
 	return null
 	
 #what happens during input events in this state

@@ -2,6 +2,7 @@ class_name Planet extends Area2D
 
 @onready var hit_box: HitBox = $HitBox
 @onready var hp_bar: HpBar = $HpBar
+@onready var collision_shape: CollisionShape2D = $HitBox/CollisionShape2D
 
 @export var stats: PlanetStats
 
@@ -15,7 +16,10 @@ func _ready() -> void:
 	hp_bar.set_hp(stats.max_hp)
 	hit_box.Damaged.connect(_take_damage)
 	base_y = global_position.y
-	pass
+	set_planet()
+
+func set_planet() -> void:
+	EventBus.current_planet = self
 
 func _take_damage(_hurt_box: HurtBox) -> void:
 	if _hurt_box:
@@ -30,3 +34,6 @@ func _process(_delta: float) -> void:
 func floating(_delta: float) -> void:
 	time_passed += _delta * float_speed
 	global_position.y = base_y + sin(time_passed) * float_amplitude
+
+func get_collision_shape() -> Shape2D:
+	return collision_shape.shape

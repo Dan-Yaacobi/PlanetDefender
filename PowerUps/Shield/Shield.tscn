@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://bb0ld222subxk"]
+
+[ext_resource type="Script" uid="uid://cft4qf2wn12m1" path="res://PowerUps/Shield/shield.gd" id="1_55amj"]
+[ext_resource type="PackedScene" uid="uid://dr6ye5e4ct00g" path="res://General Nodes/HitBox/HitBox.tscn" id="2_h7t4m"]
+[ext_resource type="Texture2D" uid="uid://dchky38yrd0re" path="res://Assets/green-halo.png" id="2_xk6j4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_55amj"]
+
+[node name="Shield" type="Node2D"]
+script = ExtResource("1_55amj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_xk6j4")
+
+[node name="HitBox" parent="." instance=ExtResource("2_h7t4m")]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("CircleShape2D_55amj")
+debug_color = Color(0.5693863, 0.99999994, 0.58914804, 0.41960785)

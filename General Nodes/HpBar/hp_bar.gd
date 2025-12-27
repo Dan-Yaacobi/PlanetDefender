@@ -1,4 +1,4 @@
-class_name HpBar extends ProgressBar
+class_name HpBar extends TextureProgressBar
 
 signal zero_health
 

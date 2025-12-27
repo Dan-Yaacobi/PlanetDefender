@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://1mk6ltub3xpm"]
+[gd_scene load_steps=3 format=3 uid="uid://1mk6ltub3xpm"]
 
 [ext_resource type="Script" uid="uid://y12ol4214wmi" path="res://GUI/Objectives/objective_display.gd" id="1_enysl"]
+[ext_resource type="Texture2D" uid="uid://jpeohohfiapf" path="res://Assets/Objective Window.png" id="2_4tfcv"]
 
 [node name="ObjectiveDisplay" type="Control"]
 layout_mode = 3
@@ -11,12 +12,46 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_enysl")
 
+[node name="ObjectiveWindow" type="Sprite2D" parent="."]
+position = Vector2(199.00003, 58.000004)
+scale = Vector2(0.17927927, 0.23459242)
+texture = ExtResource("2_4tfcv")
+
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
-offset_left = 26.0
-offset_top = 38.0
-offset_right = 1471.0
-offset_bottom = 243.0
+offset_left = 7.0
+offset_top = 34.0
+offset_right = 1199.0
+offset_bottom = 339.0
 scale = Vector2(0.25, 0.25)
-theme_override_font_sizes/font_size = 150
-text = "Kill 5 enemies: 5 left"
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 50
+theme_override_font_sizes/font_size = 120
+text = "Kill 5 enemies"
+autowrap_mode = 2
+
+[node name="Objective" type="Label" parent="."]
+layout_mode = 0
+offset_left = 6.0
+offset_top = -1.0
+offset_right = 662.0
+offset_bottom = 150.0
+scale = Vector2(0.25, 0.25)
+theme_override_colors/font_color = Color(0.82, 0.72433335, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 50
+theme_override_font_sizes/font_size = 120
+text = "Objective:"
+
+[node name="Amount" type="Label" parent="."]
+layout_mode = 0
+offset_left = 324.0
+offset_top = 31.0
+offset_right = 540.0
+offset_bottom = 182.0
+scale = Vector2(0.25, 0.25)
+theme_override_colors/font_color = Color(0.81960785, 0.7254902, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 50
+theme_override_font_sizes/font_size = 120
+text = "0/5"

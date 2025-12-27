@@ -38,6 +38,6 @@ func test() -> void:
 	add_objective(objectives.pick_random().instantiate())
 	pass
 
-func update_display(_id: int, _text: String) -> void:
-	objectives_display[_id].update_label(_text)
+func update_display(_id: int, _text: String, _left: String, _total: String) -> void:
+	objectives_display[_id].update_label(_text,_left,_total)
 	pass

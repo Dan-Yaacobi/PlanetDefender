@@ -22,11 +22,15 @@ EventBus="*res://00_Globals/EventBus.gd"
 
 [display]
 
-window/size/viewport_width=1500
-window/size/viewport_height=1000
-window/stretch/mode="viewport"
-window/stretch/aspect="ignore"
+window/size/viewport_width=720
+window/size/viewport_height=1280
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 window/handheld/orientation=1
+
+[gui]
+
+theme/custom_font="uid://bahbmv3mqgnqu"
 
 [input]
 
