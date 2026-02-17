@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://nuqyiyqwxy5a"]
+
+[ext_resource type="Script" uid="uid://d3idoe5aa852h" path="res://PowerUps/AOEAttack/aoe_attack.gd" id="1_5vpro"]
+[ext_resource type="Script" uid="uid://dw4pu10g7os2a" path="res://Player/Scripts/player_hurt_box.gd" id="2_hn21p"]
+
+[sub_resource type="Curve" id="Curve_mm24x"]
+_limits = [0.0, 5.0, 0.0, 1.0]
+_data = [Vector2(0, 5), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3uedf"]
+radius = 40.0
+
+[node name="AoeAttack" type="Node2D"]
+script = ExtResource("1_5vpro")
+
+[node name="AttackEffect" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 250
+lifetime = 3.0
+one_shot = true
+preprocess = 0.5
+speed_scale = 2.0
+explosiveness = 1.0
+emission_shape = 1
+emission_sphere_radius = 35.0
+gravity = Vector2(0, 0)
+scale_amount_curve = SubResource("Curve_mm24x")
+color = Color(1, 0, 0, 1)
+
+[node name="PlayerHurtBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitoring = false
+monitorable = false
+script = ExtResource("2_hn21p")
+metadata/_custom_type_script = "uid://dw4pu10g7os2a"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHurtBox"]
+shape = SubResource("CircleShape2D_3uedf")

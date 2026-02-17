@@ -7,4 +7,4 @@ func AreaEnetered( a : Area2D) -> void:
 		a.TakeDamage(self)
 		if a.entity is Enemy:
 			hit.emit(a.entity)
-	pass
+			

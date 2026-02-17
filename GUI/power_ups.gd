@@ -10,7 +10,7 @@ func _ready() -> void:
 			power.chosen.connect(power_up_chosen)
 			#power.disable()
 	EventBus.objective_completed.connect(enable_all)
-
+	disable_all()
 func power_up_chosen() -> void:
 	disable_all()
 	EventBus.new_objective.emit(objective_completed_id)
@@ -23,3 +23,6 @@ func enable_all(_id: int) -> void:
 	for power in power_ups:
 		power.enable()
 	objective_completed_id = _id
+
+func get_random_power_ups() -> void:
+	pass

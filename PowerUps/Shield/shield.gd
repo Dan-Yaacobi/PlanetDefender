@@ -1,4 +1,4 @@
-class_name Shield extends Node2D
+class_name Shield extends Ability
 
 @onready var hit_box: HitBox = $HitBox
 @onready var collision_shape: CollisionShape2D = $HitBox/CollisionShape2D

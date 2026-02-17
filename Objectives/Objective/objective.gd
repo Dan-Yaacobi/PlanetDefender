@@ -11,7 +11,7 @@ func set_display_id(_id: int) -> void:
 	display_id = _id
 	active = true
 	
-func extra_setup_methods(tier: int) -> void:
+func extra_setup_methods(_tier: int) -> void:
 	pass
 
 func update_objective(_enemy: Enemy) -> void:

@@ -1,6 +1,7 @@
 extends Node
 
 var current_planet: Planet
+signal get_player(player: Player)
 
 signal combo_reset
 signal combo_added

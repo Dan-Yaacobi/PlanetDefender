@@ -12,7 +12,7 @@ func extra_setup_methods(tier: int) -> void:
 
 func update_label() -> void:
 	var label_text: String = "Kill " + str(total_amount) + " Enemies in one hit"
-	EventBus.update_objective.emit(display_id,label_text, str(amount_left), str(total_amount))
+	EventBus.update_objective.emit(display_id,label_text, str(total_amount - amount_left), str(total_amount))
 
 func reset_objective() -> void:
 	amount_left = total_amount
